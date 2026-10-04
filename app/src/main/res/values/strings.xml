@@ -1,0 +1,579 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="app_name">WinterArc</string>
+
+    <!-- Units -->
+    <string name="unit_km">km</string>
+    <string name="unit_mi">mi</string>
+    <string name="unit_min">min</string>
+    <string name="unit_pages">pages</string>
+    <string name="unit_reps">reps</string>
+    <string name="unit_sessions">sessions</string>
+    <string name="unit_custom">units</string>
+    <string name="unit_name_km">Kilometres</string>
+    <string name="unit_name_mi">Miles</string>
+    <string name="unit_name_min">Minutes</string>
+    <string name="unit_name_pages">Pages</string>
+    <string name="unit_name_reps">Repetitions</string>
+    <string name="unit_name_sessions">Sessions</string>
+    <string name="unit_name_custom">Custom</string>
+    <string name="unit_km_value">%1$s km</string>
+    <string name="unit_mi_value">%1$s mi</string>
+    <string name="unit_custom_value">%1$s %2$s</string>
+    <plurals name="unit_min_value">
+        <item quantity="one">%1$s minute</item>
+        <item quantity="other">%1$s minutes</item>
+    </plurals>
+    <plurals name="unit_pages_value">
+        <item quantity="one">%1$s page</item>
+        <item quantity="other">%1$s pages</item>
+    </plurals>
+    <plurals name="unit_reps_value">
+        <item quantity="one">%1$s rep</item>
+        <item quantity="other">%1$s reps</item>
+    </plurals>
+    <plurals name="unit_sessions_value">
+        <item quantity="one">%1$s session</item>
+        <item quantity="other">%1$s sessions</item>
+    </plurals>
+
+    <!-- Notifications -->
+    <string name="notification_channel_reminders">Daily reminders</string>
+    <string name="notification_channel_reminders_description">A gentle nudge at the time you chose for each goal.</string>
+    <string name="notification_reminder_text">Today\'s target: %1$s. Check in whenever you\'re done.</string>
+
+    <!-- General -->
+    <string name="action_next">Next</string>
+    <string name="action_back">Back</string>
+    <string name="action_skip">Skip</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_done">Done</string>
+    <string name="action_close">Close</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_undo">Undo</string>
+    <string name="action_continue">Continue</string>
+    <string name="navigate_up">Navigate up</string>
+    <string name="error_generic">Something went wrong. Your data is safe — please try again.</string>
+    <string name="loading">Loading</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_1_title">Choose a goal</string>
+    <string name="onboarding_1_body">Walk every day, build up to 10 km, read 20 pages. Pick one thing that matters to you.</string>
+    <string name="onboarding_2_title">Consistency or progression</string>
+    <string name="onboarding_2_body">Repeat the same target to build rhythm — or start comfortably and move toward a milestone one completed step at a time.</string>
+    <string name="onboarding_3_title">Watch effort become a record</string>
+    <string name="onboarding_3_body">Complete the target and a square fills in. Day by day, your effort turns into a visual record you can see.</string>
+    <string name="onboarding_get_started">Get started</string>
+    <string name="onboarding_page_indicator">Page %1$d of %2$d</string>
+    <string name="onboarding_disclaimer">WinterArc is a personal tracker, not medical or coaching advice.</string>
+
+    <!-- Home -->
+    <string name="home_greeting_morning">Good morning</string>
+    <string name="home_greeting_afternoon">Good afternoon</string>
+    <string name="home_greeting_evening">Good evening</string>
+    <string name="home_section_today">Today</string>
+    <string name="home_section_rest">Not scheduled today</string>
+    <string name="home_section_paused">Paused</string>
+    <string name="home_new_goal">New goal</string>
+    <string name="home_empty_title">Your first square is waiting</string>
+    <string name="home_empty_body">Create a goal, choose consistency or progression, and check in when you\'re done. Each completed day fills in a square.</string>
+    <string name="home_empty_cta">Create your first goal</string>
+    <string name="home_summary_all_done">All done for today. Nicely done.</string>
+    <plurals name="home_summary_remaining">
+        <item quantity="one">%1$d target left today</item>
+        <item quantity="other">%1$d targets left today</item>
+    </plurals>
+    <string name="home_summary_none_today">No targets scheduled today. Enjoy the rest.</string>
+    <string name="menu_archive">Archive</string>
+    <string name="menu_settings">Settings</string>
+
+    <!-- Primary navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_community">Community</string>
+    <string name="nav_new_goal">New</string>
+    <string name="nav_chats">Chats</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Community -->
+    <string name="community_title">Community</string>
+    <string name="community_intro">Grow alongside people working toward goals like yours.</string>
+    <string name="community_tab_posts">Posts &amp; discover</string>
+    <string name="community_tab_mine">My communities</string>
+    <string name="community_share_prompt">What are you working toward today?</string>
+    <string name="community_share_action">Share progress</string>
+    <string name="community_discover">Discover communities</string>
+    <string name="community_latest">Posts from the community</string>
+    <string name="community_filter_for_you">For you</string>
+    <string name="community_filter_following">Following</string>
+    <string name="community_join">Join</string>
+    <string name="community_joined">Joined</string>
+    <string name="community_open">Open</string>
+    <string name="community_owned">Owner</string>
+    <string name="community_members">%1$s members</string>
+    <string name="community_likes">%1$d</string>
+    <plurals name="community_comments">
+        <item quantity="one">%1$d reply</item>
+        <item quantity="other">%1$d replies</item>
+    </plurals>
+    <string name="community_replies_note">Replies will appear here.</string>
+    <string name="community_post_title">Share your progress</string>
+    <string name="community_post_hint">A win, a challenge, or something you learned…</string>
+    <string name="community_post_action">Post</string>
+    <string name="community_posted">Your post is now in the community.</string>
+    <string name="community_choose_post">Post to which community?</string>
+    <string name="community_join_before_post">Join a community before posting.</string>
+    <string name="community_no_post_permission">Posting is limited by this community’s owner.</string>
+    <string name="community_post_empty">Write something before posting.</string>
+    <string name="community_you">You</string>
+    <string name="community_you_initial">Y</string>
+    <string name="community_just_now">Just now · General</string>
+    <string name="community_yours_title">Joined communities</string>
+    <string name="community_yours_empty">Communities you join or create will appear here.</string>
+    <string name="community_create">Create community</string>
+    <string name="community_create_title">Create a community</string>
+    <string name="community_name_hint">Community name</string>
+    <string name="community_description_hint">What is this community for?</string>
+    <string name="community_created">Community created. You are its owner.</string>
+    <string name="community_join_success">Joined community.</string>
+    <string name="community_leave">Leave community</string>
+    <string name="community_leave_confirm">Leave %1$s?</string>
+    <string name="community_follow">Follow</string>
+    <string name="community_following">Following</string>
+    <string name="community_view_profile">View %1$s’s profile</string>
+    <string name="community_action_denied">The community owner has restricted that action.</string>
+    <string name="community_action_failed">That action could not be completed.</string>
+    <string name="community_role_owner">Owner</string>
+    <string name="community_role_admin">Admin</string>
+    <string name="community_role_member">Member</string>
+
+    <!-- Community group chat and RBAC -->
+    <string name="community_chat_title">Community chat</string>
+    <string name="community_members_count">%1$d members</string>
+    <string name="community_chat_welcome">Messages in this community stay together here.</string>
+    <string name="community_chat_disabled">Only admins can send messages in this community.</string>
+    <string name="community_chat_join">Join to take part in this chat.</string>
+    <string name="community_message_hint">Message community</string>
+    <string name="community_manage">Manage community</string>
+    <string name="community_info">Community info</string>
+    <string name="community_settings_title">Community permissions</string>
+    <string name="community_settings_intro">Choose what regular members can do. Owners always keep full control; admins can post, chat, invite, and help manage members.</string>
+    <string name="community_permission_post">Members can create posts</string>
+    <string name="community_permission_chat">Members can send chat messages</string>
+    <string name="community_permission_invite">Members can invite people</string>
+    <string name="community_members_title">Members &amp; roles</string>
+    <string name="community_make_admin">Make admin</string>
+    <string name="community_make_member">Make member</string>
+    <string name="community_permissions_saved">Community permissions updated.</string>
+    <string name="community_role_updated">Member role updated.</string>
+
+    <!-- Public user profile -->
+    <string name="user_profile_title">Profile</string>
+    <string name="user_followers">Followers</string>
+    <string name="user_following">Following</string>
+    <string name="user_created_communities">Communities created</string>
+    <string name="user_no_communities">No communities created yet.</string>
+
+    <!-- Chats -->
+    <string name="chats_title">Chats</string>
+    <string name="chats_intro">Keep in touch with the people you meet in your communities.</string>
+    <string name="chats_search_hint">Search connections</string>
+    <string name="chats_connections">Your connections</string>
+    <string name="chats_empty_search">No connections match that search.</string>
+    <string name="chat_online">Online</string>
+    <string name="chat_message_hint">Write a message</string>
+    <string name="chat_send">Send message</string>
+    <string name="chat_today">Today</string>
+    <string name="chat_open_cd">Open chat with %1$s</string>
+    <string name="chat_start_note">You connected through the WinterArc community.</string>
+
+    <!-- Profile -->
+    <string name="profile_title">Profile</string>
+    <string name="profile_default_name">WinterArc member</string>
+    <string name="profile_member_since">Building momentum since 2026</string>
+    <string name="profile_edit">Edit profile</string>
+    <string name="profile_edit_title">Your display name</string>
+    <string name="profile_name_hint">Display name</string>
+    <string name="profile_active_goals">Active goals</string>
+    <string name="profile_today_done">Done today</string>
+    <string name="profile_communities">Communities</string>
+    <string name="profile_your_progress">Your progress</string>
+    <string name="profile_account">Account &amp; app</string>
+    <string name="profile_created_communities">Communities you created</string>
+    <string name="profile_create_community">Create your first community</string>
+    <string name="profile_archive">Goal archive</string>
+    <string name="profile_settings">Settings</string>
+    <string name="profile_phone_hidden">Signed in securely</string>
+    <string name="profile_default_initial">W</string>
+    <string name="profile_stat_zero">0</string>
+    <string name="profile_stat_communities_value">3</string>
+
+    <!-- Goal card -->
+    <string name="card_target_today">Today · %1$s</string>
+    <string name="card_target_next">Next · %1$s</string>
+    <plurals name="streak_days">
+        <item quantity="one">%1$d day streak</item>
+        <item quantity="other">%1$d day streak</item>
+    </plurals>
+    <string name="card_complete">Complete</string>
+    <string name="card_completed">Completed</string>
+    <string name="card_partial">%1$s logged</string>
+    <string name="card_skipped">Rest day</string>
+    <string name="card_resume">Resume</string>
+    <string name="card_milestone_ready">Milestone reached — choose what\'s next</string>
+    <string name="card_progress_to_final">%1$s toward %2$s</string>
+    <string name="card_cd_complete">Complete today\'s %1$s target for %2$s</string>
+    <string name="card_cd_open">%1$s. %2$s. %3$s.</string>
+
+    <!-- Modes -->
+    <string name="mode_consistency">Consistency</string>
+    <string name="mode_progression">Progression</string>
+    <string name="mode_consistency_desc">Repeat the same target and build an unbroken rhythm.</string>
+    <string name="mode_progression_desc">Start at a comfortable level and move toward a milestone step by step.</string>
+    <string name="mode_consistency_example">5 km · 5 km · 5 km · 5 km</string>
+    <string name="mode_progression_example">1 km → 2 km → 3 km → … → 10 km</string>
+
+    <!-- Activities -->
+    <string name="activity_walking">Walking</string>
+    <string name="activity_running">Running</string>
+    <string name="activity_reading">Reading</string>
+    <string name="activity_meditation">Meditation</string>
+    <string name="activity_coding">Coding</string>
+    <string name="activity_custom">Custom goal</string>
+    <string name="activity_walking_desc">Daily steps that add up</string>
+    <string name="activity_running_desc">Build distance patiently</string>
+    <string name="activity_custom_desc">Pages, minutes, sessions — anything you repeat</string>
+
+    <!-- Editor -->
+    <string name="editor_title_new">New goal</string>
+    <string name="editor_title_edit">Edit goal</string>
+    <string name="editor_step_of">Step %1$d of %2$d</string>
+    <string name="editor_step_activity">What do you want to work on?</string>
+    <string name="editor_step_activity_more">More activities</string>
+    <string name="editor_step_mode">How do you want to track it?</string>
+    <string name="editor_step_target_consistency">What\'s your target each active day?</string>
+    <string name="editor_step_target_progression">Plan your progression</string>
+    <string name="editor_step_details">Make it yours</string>
+    <string name="editor_step_schedule">When will you work on it?</string>
+    <string name="editor_step_review">Review your goal</string>
+    <string name="editor_unit">Unit</string>
+    <string name="editor_custom_unit">Unit name</string>
+    <string name="editor_custom_unit_hint">e.g. chapters, laps</string>
+    <string name="editor_target_label">Target</string>
+    <string name="editor_start_target">Starting target</string>
+    <string name="editor_final_target">Final target</string>
+    <string name="editor_hop">Progress hop</string>
+    <string name="editor_hop_help">Added after each successful completion. Missed days keep the same target.</string>
+    <string name="editor_final_custom">Custom</string>
+    <string name="editor_plan_preview_label">Your steps</string>
+    <plurals name="editor_plan_steps">
+        <item quantity="one">%1$d completed step to your milestone</item>
+        <item quantity="other">%1$d completed steps to your milestone</item>
+    </plurals>
+    <string name="editor_title_label">Goal title</string>
+    <string name="editor_title_hint">e.g. Morning walk</string>
+    <string name="editor_description_label">Description (optional)</string>
+    <string name="editor_icon">Icon</string>
+    <string name="editor_color">Color</string>
+    <string name="editor_active_days">Active days</string>
+    <string name="editor_days_every_day">Every day</string>
+    <string name="editor_days_weekdays">Weekdays</string>
+    <string name="editor_rest_days_hint">Rest days are part of good training. You can leave some days off.</string>
+    <string name="editor_reminder">Daily reminder</string>
+    <string name="editor_reminder_time">Reminder time</string>
+    <string name="editor_reminder_off">No reminder</string>
+    <string name="editor_start_date">Start date</string>
+    <string name="editor_create">Create goal</string>
+    <string name="editor_save_changes">Save changes</string>
+    <string name="editor_review_mode">Mode</string>
+    <string name="editor_review_target">Target</string>
+    <string name="editor_review_plan">Plan</string>
+    <string name="editor_review_schedule">Schedule</string>
+    <string name="editor_review_reminder">Reminder</string>
+    <string name="editor_review_start">Starts</string>
+    <string name="editor_review_plan_value">%1$s → %2$s, +%3$s per completion</string>
+    <string name="editor_edit_history_note">Edits never change your history. Past days keep the target they had.</string>
+    <string name="editor_discard_title">Discard this goal?</string>
+    <string name="editor_discard_body">Your choices so far won\'t be saved.</string>
+    <string name="editor_discard">Discard</string>
+    <string name="editor_keep_editing">Keep editing</string>
+
+    <!-- Validation -->
+    <string name="error_title_blank">Give your goal a name.</string>
+    <string name="error_title_too_long">Keep the title under 60 characters.</string>
+    <string name="error_description_too_long">Keep the description under 280 characters.</string>
+    <string name="error_custom_unit_blank">Name your unit, e.g. \"chapters\".</string>
+    <string name="error_target_positive">Choose a target above zero.</string>
+    <string name="error_target_too_large">That target is above the maximum of 9,999.</string>
+    <string name="error_start_positive">Choose a starting target above zero.</string>
+    <string name="error_final_greater">The final target must be greater than the starting target.</string>
+    <string name="error_hop_positive">Choose a progress hop above zero.</string>
+    <string name="error_too_many_steps">That plan has too many steps. Try a bigger hop.</string>
+    <string name="error_decimals">This unit uses whole numbers.</string>
+    <string name="error_no_days">Pick at least one active day.</string>
+
+    <!-- Safety -->
+    <string name="safety_title">A note on pacing</string>
+    <string name="safety_large_hop">This plan increases quickly between steps. Smaller hops give your body time to adapt.</string>
+    <string name="safety_long_distance">Long distances usually need structured, gradual training and recovery.</string>
+    <string name="safety_very_long_distance">This is a very long distance. Please make sure it suits your experience and health, and consider guidance from a qualified professional.</string>
+    <string name="safety_no_rest_days">Running every day with an increasing target leaves no rest days. Consider adding recovery days.</string>
+    <string name="safety_footer">WinterArc doesn\'t provide medical or coaching advice. Choose targets appropriate for your ability and stop if something hurts.</string>
+    <string name="safety_confirm_title">Is this plan right for you?</string>
+    <string name="safety_confirm_action">I understand, continue</string>
+    <string name="safety_adjust_action">Adjust plan</string>
+
+    <!-- Milestone suggestions (supportive; no target is presented as lesser) -->
+    <string name="milestone_msg_5">A meaningful milestone and a strong place to begin.</string>
+    <string name="milestone_msg_10">A challenging goal that rewards patient preparation.</string>
+    <string name="milestone_msg_15">A substantial distance that builds real endurance.</string>
+    <string name="milestone_msg_20">A serious endurance goal. Steady weeks will get you there.</string>
+    <string name="milestone_msg_21">A half-marathon milestone requiring structured training.</string>
+    <string name="milestone_msg_25">Beyond the half marathon. Build gradually and protect your recovery.</string>
+    <string name="milestone_msg_30">A long-distance goal that rewards consistency over many weeks.</string>
+    <string name="milestone_msg_35">A demanding distance. Prioritise sleep, fuel and easy days.</string>
+    <string name="milestone_msg_40">Near-marathon territory. Patience is your best training partner.</string>
+    <string name="milestone_msg_42">The marathon distance — an ambitious endurance commitment.</string>
+    <string name="milestone_msg_45">Past the marathon. Build gradually and listen to your body.</string>
+    <string name="milestone_msg_50">An ultramarathon milestone. Build gradually and prioritise recovery.</string>
+    <string name="milestone_msg_custom">Your milestone, your pace. Every completed step counts.</string>
+    <string name="milestone_picker_cd">%1$s. %2$s</string>
+
+    <!-- Detail -->
+    <string name="detail_question">Did you complete today\'s %1$s target?</string>
+    <string name="detail_question_unscheduled">Not scheduled today — bonus effort still counts.</string>
+    <string name="detail_question_before_start">This goal starts on %1$s.</string>
+    <string name="detail_done_title">Done for today</string>
+    <string name="detail_done_body">%1$s of %2$s logged.</string>
+    <string name="detail_partial_title">Partial progress</string>
+    <string name="detail_partial_body">%1$s of %2$s so far. Log more whenever you\'re ready.</string>
+    <string name="detail_skipped_title">Rest day</string>
+    <string name="detail_skipped_body">Taking a break is part of the process. Your streak is safe.</string>
+    <string name="detail_paused_title">Paused</string>
+    <string name="detail_paused_body">Nothing is counted while paused. Resume when you\'re ready.</string>
+    <string name="detail_closed_body">This goal is in your archive. Restore it to keep going.</string>
+    <string name="detail_action_complete">Complete</string>
+    <string name="detail_action_log">Log progress</string>
+    <string name="detail_action_skip">Skip</string>
+    <string name="detail_action_note">Add note</string>
+    <string name="detail_action_edit_note">Edit note</string>
+    <string name="detail_action_undo">Undo today</string>
+    <string name="detail_note_label">Note</string>
+    <string name="detail_section_progression">Progression</string>
+    <string name="detail_section_history">History</string>
+    <string name="detail_section_stats">Stats</string>
+    <string name="detail_section_inspiration">Inspiration</string>
+    <string name="detail_next_target">Next target</string>
+    <string name="detail_current_target">Current target</string>
+    <string name="detail_final_target">Final milestone</string>
+    <string name="detail_level">Step %1$d of %2$d</string>
+    <plurals name="detail_remaining">
+        <item quantity="one">%1$d more completion to reach %2$s</item>
+        <item quantity="other">%1$d more completions to reach %2$s</item>
+    </plurals>
+    <string name="detail_target_note">The target only moves up after a completed day. Missed days keep it where it is.</string>
+    <string name="detail_view_stats">All stats</string>
+    <string name="detail_completed_snack">Nice work — %1$s complete.</string>
+    <string name="detail_partial_snack">Progress saved.</string>
+    <string name="detail_skipped_snack">Rest day saved. Resume when you\'re ready.</string>
+    <string name="detail_undone_snack">Today\'s check-in was undone.</string>
+    <string name="detail_subtitle">%1$s · %2$s</string>
+    <string name="detail_note_saved">Note saved.</string>
+    <string name="detail_resumed_snack">Welcome back. Your target is right where you left it.</string>
+    <string name="detail_next_up">Next up: %1$s</string>
+    <string name="menu_edit">Edit goal</string>
+    <string name="menu_pause">Pause goal</string>
+    <string name="menu_resume">Resume goal</string>
+    <string name="menu_archive_goal">Archive goal</string>
+    <string name="menu_stats">Progress &amp; stats</string>
+    <string name="archive_confirm_title">Archive this goal?</string>
+    <string name="archive_confirm_body">It will move to your archive with all of its history. You can restore it at any time.</string>
+    <string name="pause_confirm_body">Paused days are never counted as missed. Your target stays the same until you resume.</string>
+    <string name="goal_not_found">This goal no longer exists.</string>
+    <string name="source_label">Source: %1$s</string>
+    <string name="source_open_cd">Open source: %1$s</string>
+    <string name="quote_attribution">— %1$s</string>
+
+    <!-- Stats -->
+    <string name="stat_current_streak">Current streak</string>
+    <string name="stat_longest_streak">Longest streak</string>
+    <string name="stat_completed_days">Days completed</string>
+    <string name="stat_completion_rate">Completion rate</string>
+    <string name="stat_total">Total</string>
+    <string name="stat_toward_final">Toward milestone</string>
+    <string name="stat_exceeded">Above target</string>
+    <string name="stat_partial">Partial days</string>
+    <string name="stat_rest">Rest days</string>
+    <plurals name="stat_days_value">
+        <item quantity="one">%1$d day</item>
+        <item quantity="other">%1$d days</item>
+    </plurals>
+    <string name="stats_title">Progress &amp; stats</string>
+    <string name="stats_year">Last 12 months</string>
+    <string name="stats_breakdown">Breakdown</string>
+    <string name="stats_milestones">Milestones</string>
+    <string name="stats_no_milestones">Milestones you reach will appear here.</string>
+    <string name="stats_milestone_item">%1$s · %2$s</string>
+    <string name="stats_milestone_maintained">Maintained</string>
+    <string name="stats_milestone_continued">Continued</string>
+    <string name="stats_milestone_completed">Goal completed</string>
+    <string name="stats_milestone_pending">Reached</string>
+    <string name="stats_monthly">Completed days by month</string>
+    <plurals name="stats_month_value">
+        <item quantity="one">%1$s: %2$d completed day</item>
+        <item quantity="other">%1$s: %2$d completed days</item>
+    </plurals>
+
+    <!-- Heatmap -->
+    <string name="grid_legend_less">Less</string>
+    <string name="grid_legend_more">More</string>
+    <string name="grid_legend_rest">Rest</string>
+    <plurals name="grid_cd_summary">
+        <item quantity="one">Contribution grid for %1$s. %2$d completed day in the last %3$d weeks.</item>
+        <item quantity="other">Contribution grid for %1$s. %2$d completed days in the last %3$d weeks.</item>
+    </plurals>
+    <string name="grid_cd_day">%1$s: %2$s</string>
+    <string name="day_kind_completed">target completed</string>
+    <string name="day_kind_exceeded">target exceeded</string>
+    <string name="day_kind_partial">partial progress</string>
+    <string name="day_kind_missed">no activity</string>
+    <string name="day_kind_skipped">rest day</string>
+    <string name="day_kind_paused">paused</string>
+    <string name="day_kind_not_scheduled">not scheduled</string>
+    <string name="day_kind_today">today, not logged yet</string>
+    <string name="day_kind_future">upcoming</string>
+    <string name="day_kind_outside">outside this goal</string>
+    <string name="day_detail_target">Target</string>
+    <string name="day_detail_logged">Logged</string>
+    <string name="day_detail_level">Progression step</string>
+    <string name="day_detail_reason">Reason</string>
+    <string name="day_detail_nothing">Nothing logged for this day.</string>
+
+    <!-- Check-in sheets -->
+    <string name="log_title">Log progress</string>
+    <string name="log_subtitle">How much did you do today? Target: %1$s</string>
+    <string name="log_will_complete">This completes today\'s target.</string>
+    <string name="log_will_partial">Saved as partial progress.</string>
+    <string name="log_note_hint">Add a note (optional)</string>
+    <string name="skip_title">Skip today</string>
+    <string name="skip_subtitle">Skipping is fine. Your streak isn\'t broken by a planned rest.</string>
+    <string name="skip_reason_rest">Rest day</string>
+    <string name="skip_reason_unwell">Not feeling well</string>
+    <string name="skip_reason_weather">Weather</string>
+    <string name="skip_reason_busy">Busy day</string>
+    <string name="skip_reason_other">Other</string>
+    <string name="skip_confirm">Skip today</string>
+    <string name="note_title">Note for today</string>
+    <string name="picker_cd_tens">Tens</string>
+    <string name="picker_cd_ones">Ones</string>
+    <string name="picker_cd_hundreds">Hundreds</string>
+    <string name="picker_cd_tenths">Tenths</string>
+    <string name="picker_value_cd">Selected value %1$s</string>
+
+    <!-- Milestone celebration -->
+    <string name="celebration_title">You reached %1$s.</string>
+    <string name="celebration_body">Every step of this came from showing up. Your full history is saved.</string>
+    <string name="celebration_question">What would you like to do next?</string>
+    <string name="celebration_maintain">Maintain this level</string>
+    <string name="celebration_maintain_desc">Switch to consistency with a recurring %1$s target.</string>
+    <string name="celebration_continue">Continue progressing</string>
+    <string name="celebration_continue_desc">Set a new final target and keep moving up.</string>
+    <string name="celebration_complete">Mark the goal complete</string>
+    <string name="celebration_complete_desc">Archive it with every square and milestone preserved.</string>
+    <string name="celebration_later">Decide later</string>
+    <string name="continue_title">Set a new milestone</string>
+    <string name="continue_new_final">New final target</string>
+    <string name="continue_new_hop">Progress hop</string>
+    <string name="continue_error">Choose a final target above %1$s.</string>
+    <string name="celebration_maintained_snack">Now maintaining %1$s.</string>
+    <string name="celebration_continued_snack">New milestone set: %1$s.</string>
+    <string name="celebration_completed_snack">Goal completed and archived.</string>
+
+    <!-- Archive -->
+    <string name="archive_title">Archive</string>
+    <string name="archive_empty">Completed and archived goals appear here, with all of their history.</string>
+    <string name="archive_status_completed">Completed %1$s</string>
+    <string name="archive_status_archived">Archived %1$s</string>
+    <string name="archive_restore">Restore</string>
+    <string name="archive_delete_title">Delete permanently?</string>
+    <string name="archive_delete_body">\"%1$s\" and all of its history will be deleted from this device. This can\'t be undone.</string>
+    <string name="archive_restored">Goal restored.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_section_appearance">Appearance</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_system">System</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_section_reminders">Reminders</string>
+    <string name="settings_reminders">Goal reminders</string>
+    <string name="settings_reminders_desc">Gentle nudges at the time set on each goal.</string>
+    <string name="settings_notifications_blocked">Notifications are turned off for WinterArc.</string>
+    <string name="settings_open_notification_settings">Open notification settings</string>
+    <string name="settings_haptics">Haptic feedback</string>
+    <string name="settings_section_about">About</string>
+    <string name="settings_privacy">Privacy policy</string>
+    <string name="settings_terms">Terms &amp; disclaimer</string>
+    <string name="settings_onboarding">Show introduction again</string>
+    <string name="settings_version">Version %1$s</string>
+    <string name="settings_section_demo">Demo tools (debug builds only)</string>
+    <string name="settings_demo_load">Load demo scenario</string>
+    <string name="settings_demo_load_desc">Replaces all goals with several months of realistic history.</string>
+    <string name="settings_demo_clear">Clear all data</string>
+    <string name="settings_demo_confirm">This replaces every goal on this device. Continue?</string>
+    <string name="settings_demo_loaded">Demo scenario loaded.</string>
+    <string name="settings_demo_cleared">All data cleared.</string>
+
+    <!-- Legal -->
+    <string name="privacy_title">Privacy policy</string>
+    <string name="terms_title">Terms &amp; disclaimer</string>
+    <string name="privacy_body">Last updated: 2 October 2026\n\nWinterArc is designed to work entirely on your device.\n\nWhat we store\nYour goals, check-ins, notes, milestones and preferences are stored locally on this device.\n\nYour account\nTo create an account you provide your mobile number. It is sent to our authentication provider (Google Firebase Authentication) only to deliver a one-time code by SMS and to sign you in. We do not use your number for marketing, and it is never shown to other people.\n\nWhat we share\nYour goals, notes and history stay on this device; this version does not upload them. Your mobile number is shared with Firebase Authentication for verification only. Analytics and crash reporting are disabled.\n\nBackups\nIf you use Android\'s device backup, your WinterArc data may be included in that backup under your Google account, according to your device settings.\n\nNotifications\nReminders are scheduled on your device. No reminder content leaves your device.\n\nDeleting your data\nYou can delete any goal from the archive. Uninstalling the app removes all data stored on this device. To delete your account and the phone number held by the authentication provider, contact the developer through the app\'s store listing.\n\nChanges\nIf a future version adds optional cloud sync or analytics, this policy will be updated and you will be asked before any data is shared.\n\nContact\nQuestions about privacy can be sent to the developer through the app\'s store listing.</string>
+    <string name="terms_body">Last updated: 2 October 2026\n\nNot medical advice\nWinterArc is a personal goal tracker. It does not provide medical, health, fitness or coaching advice, and it cannot assess whether an activity is safe for you.\n\nYour responsibility\nChoose targets that suit your current ability and health. Increase gradually, include rest days, and stop if you feel pain, dizziness or discomfort. If you have a health condition, are pregnant, or are returning after injury, consider speaking with a qualified health professional before starting a new activity plan.\n\nSafety notices\nThe app may show gentle notices for plans that increase quickly or involve long distances. These notices are general information, not a diagnosis or a personalised assessment.\n\nContent\nFacts and quotations in the app include their source. General encouraging messages are written by WinterArc and are not attributed to any person.\n\nNo warranty\nThe app is provided as is. While we work hard to keep your data safe, please keep device backups if your history is important to you.\n\nChanges\nThese terms may be updated in future versions of the app.</string>
+
+    <!-- Sign up with mobile number -->
+    <string name="signup_title">Create your account</string>
+    <string name="signup_body">Sign up with your mobile number. We\'ll text you a 6-digit code to confirm it\'s you.</string>
+    <string name="signup_country">Country or region</string>
+    <string name="signup_country_cd">Country code %1$s, %2$s. Double-tap to change.</string>
+    <string name="signup_country_item">%1$s %2$s (%3$s)</string>
+    <string name="signup_phone_label">Mobile number</string>
+    <string name="signup_send_code">Send code</string>
+    <string name="signup_sending">Sending…</string>
+    <string name="signup_consent">By continuing you agree to the Terms and Privacy policy. Standard SMS rates may apply.</string>
+    <string name="signup_terms_link">Terms</string>
+    <string name="signup_privacy_link">Privacy policy</string>
+    <string name="signup_why">Your number is used only to sign you in and keep your progress safe. It is never shown to anyone else.</string>
+    <string name="signup_unavailable">Sign-up isn\'t available in this build yet. Please try again after updating the app.</string>
+    <string name="signup_test_hint">Test mode: no SMS is sent. Use code %1$s.</string>
+    <string name="phone_error_empty">Enter your mobile number.</string>
+    <string name="phone_error_characters">Use digits only, without the country code.</string>
+    <string name="phone_error_short">That number looks too short for %1$s.</string>
+    <string name="phone_error_long">That number looks too long for %1$s.</string>
+
+    <string name="otp_title">Enter the code</string>
+    <string name="otp_body">We sent a 6-digit code to %1$s.</string>
+    <string name="otp_input_cd">Verification code, 6 digits</string>
+    <string name="otp_change_number">Change number</string>
+    <string name="otp_verify">Verify</string>
+    <string name="otp_verifying">Verifying…</string>
+    <string name="otp_resend">Resend code</string>
+    <string name="otp_resend_in">Resend code in %1$s</string>
+    <string name="otp_resent">A new code is on its way.</string>
+    <string name="otp_autofill_note">The code fills in automatically if your phone allows it.</string>
+    <string name="signup_welcome">You\'re signed in. Welcome to WinterArc.</string>
+
+    <string name="auth_error_invalid_phone">That number doesn\'t look right. Check it and try again.</string>
+    <string name="auth_error_invalid_code">That code didn\'t match. Check the SMS and try again.</string>
+    <string name="auth_error_code_expired">That code has expired. Request a new one.</string>
+    <string name="auth_error_too_many">Too many attempts. Please wait a little and try again.</string>
+    <string name="auth_error_quota">We can\'t send more codes right now. Please try again later.</string>
+    <string name="auth_error_network">No connection. Check your internet and try again.</string>
+    <string name="auth_error_not_configured">Sign-up isn\'t available in this build yet.</string>
+    <string name="auth_error_unknown">Something went wrong sending the code. Please try again.</string>
+
+    <string name="settings_section_account">Account</string>
+    <string name="settings_signed_in_as">Signed in as %1$s</string>
+    <string name="settings_sign_out">Sign out</string>
+    <string name="settings_sign_out_title">Sign out?</string>
+    <string name="settings_sign_out_body">Your goals stay on this device. You\'ll need your mobile number and a new code to sign in again.</string>
+</resources>

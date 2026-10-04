@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/editor_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationContentDescription="@string/action_close"
+        app:navigationIcon="@drawable/ic_close"
+        app:title="@string/editor_title_new" />
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_gutter"
+        android:layout_marginEnd="@dimen/screen_gutter"
+        android:max="6"
+        app:trackCornerRadius="4dp"
+        app:trackThickness="6dp" />
+
+    <TextView
+        android:id="@+id/step_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_gutter"
+        android:layout_marginTop="@dimen/space_s"
+        android:textAppearance="@style/TextAppearance.WinterArc.Overline" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="@dimen/space_xl">
+
+        <ViewFlipper
+            android:id="@+id/flipper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:measureAllChildren="false">
+
+            <include android:id="@+id/step_activity" layout="@layout/editor_step_activity" />
+            <include android:id="@+id/step_mode" layout="@layout/editor_step_mode" />
+            <include android:id="@+id/step_target" layout="@layout/editor_step_target" />
+            <include android:id="@+id/step_details" layout="@layout/editor_step_details" />
+            <include android:id="@+id/step_schedule" layout="@layout/editor_step_schedule" />
+            <include android:id="@+id/step_review" layout="@layout/editor_step_review" />
+        </ViewFlipper>
+    </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/colorBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/screen_gutter"
+        android:paddingTop="@dimen/space_m"
+        android:paddingEnd="@dimen/screen_gutter"
+        android:paddingBottom="@dimen/space_m">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/back"
+            style="@style/Widget.WinterArc.Button.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:text="@string/action_back" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="56dp"
+            android:minWidth="140dp"
+            android:text="@string/action_next" />
+    </LinearLayout>
+</LinearLayout>

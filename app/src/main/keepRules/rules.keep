@@ -1,0 +1,14 @@
+# WinterArc R8 rules. AndroidX, Room, Hilt and WorkManager ship their own consumer rules.
+
+# Persisted enums are resolved reflectively by stable key (StableKeys.fromKey uses
+# Class.getEnumConstants), so their constant arrays must survive optimisation.
+-keepclassmembers enum com.app.winterarc.domain.model.** {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+# Strip verbose/debug logging from release builds.
+-assumenosideeffects class android.util.Log {
+    public static int v(...);
+    public static int d(...);
+}

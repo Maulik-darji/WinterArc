@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Color tokens (light). Dark overrides live in values-night/colors.xml. -->
+<resources>
+    <color name="wa_background">#FFF7F5F0</color>
+    <color name="wa_surface">#FFFFFFFF</color>
+    <color name="wa_surface_variant">#FFF0EDE6</color>
+    <color name="wa_surface_container">#FFF3F0EA</color>
+    <color name="wa_on_surface">#FF1A1D21</color>
+    <color name="wa_on_surface_variant">#FF5B616B</color>
+    <color name="wa_outline">#FFD9D4CA</color>
+    <color name="wa_outline_variant">#FFE7E2D9</color>
+
+    <color name="wa_primary">#FF0F8A6A</color>
+    <color name="wa_on_primary">#FFFFFFFF</color>
+    <color name="wa_primary_container">#FFCFF3E5</color>
+    <color name="wa_on_primary_container">#FF00382A</color>
+    <color name="wa_secondary">#FF2B7A87</color>
+    <color name="wa_on_secondary">#FFFFFFFF</color>
+    <color name="wa_secondary_container">#FFD3EEF2</color>
+    <color name="wa_on_secondary_container">#FF0B3A42</color>
+    <color name="wa_tertiary">#FF6B55D9</color>
+    <color name="wa_on_tertiary">#FFFFFFFF</color>
+    <color name="wa_tertiary_container">#FFE6E0FF</color>
+    <color name="wa_on_tertiary_container">#FF231566</color>
+    <color name="wa_error">#FFB3261E</color>
+    <color name="wa_on_error">#FFFFFFFF</color>
+    <color name="wa_notice_container">#FFFFF1D6</color>
+    <color name="wa_on_notice_container">#FF5A3A00</color>
+
+    <!-- Contribution grid -->
+    <color name="wa_grid_empty">#FFE8E4DB</color>
+    <color name="wa_grid_future_stroke">#FFDDD8CE</color>
+    <color name="wa_grid_rest_marker">#FF9AA0A8</color>
+    <color name="wa_grid_today_ring">#FF1A1D21</color>
+
+    <!-- Goal palette -->
+    <color name="goal_emerald">#FF12946F</color>
+    <color name="goal_teal">#FF13858F</color>
+    <color name="goal_violet">#FF6B55D9</color>
+    <color name="goal_amber">#FFC77A0A</color>
+    <color name="goal_sky">#FF2E7FD1</color>
+    <color name="goal_rose">#FFC9416B</color>
+
+    <color name="wa_launcher_background">#FF0F1419</color>
+</resources>

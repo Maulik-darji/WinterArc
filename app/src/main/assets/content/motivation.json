@@ -1,0 +1,77 @@
+{
+  "version": 1,
+  "locale": "en",
+  "_policy": "Facts and quotes MUST include source_name and source_url pointing to a reliable source. Items without a verifiable source must use type 'encouragement'. Never add invented quotes, records or 'first person to' claims.",
+  "items": [
+    {
+      "id": "fact.who.weekly_activity",
+      "type": "fact",
+      "activity": null,
+      "message": "The World Health Organization's global recommendation for adults is at least 150 minutes of moderate-intensity physical activity per week.",
+      "source_name": "World Health Organization — Physical activity fact sheet",
+      "source_url": "https://www.who.int/news-room/fact-sheets/detail/physical-activity"
+    },
+    {
+      "id": "fact.nhs.brisk_walking",
+      "type": "fact",
+      "activity": "walking",
+      "message": "NHS guidelines for adults aged 19 to 64 suggest at least 150 minutes of moderate-intensity activity a week, and list brisk walking as one example.",
+      "source_name": "NHS — Physical activity guidelines for adults aged 19 to 64",
+      "source_url": "https://www.nhs.uk/live-well/exercise/physical-activity-guidelines-for-adults-aged-19-to-64/"
+    },
+    {
+      "id": "fact.marathon.distance",
+      "type": "fact",
+      "activity": "running",
+      "min_km": "21",
+      "message": "The 42.195 km marathon distance was standardised in 1921, based on the course length used at the 1908 London Olympics.",
+      "source_name": "Wikipedia — Marathon",
+      "source_url": "https://en.wikipedia.org/wiki/Marathon"
+    },
+    {
+      "id": "quote.laozi.journey",
+      "type": "quote",
+      "activity": null,
+      "message": "A journey of a thousand miles starts with a single step.",
+      "attribution": "Laozi, Tao Te Ching, ch. 64 (common English rendering)",
+      "source_name": "Wikiquote — Laozi",
+      "source_url": "https://en.wikiquote.org/wiki/Laozi"
+    },
+    {
+      "id": "enc.any.showing_up",
+      "type": "encouragement",
+      "activity": null,
+      "message": "Every square you fill is proof you showed up. Small days count."
+    },
+    {
+      "id": "enc.any.rest",
+      "type": "encouragement",
+      "activity": null,
+      "message": "Rest is part of the plan. Resume when you're ready — your record is still yours."
+    },
+    {
+      "id": "enc.any.steady",
+      "type": "encouragement",
+      "activity": null,
+      "message": "Steady beats intense. A target you can repeat is a target that works."
+    },
+    {
+      "id": "enc.walking.easy",
+      "type": "encouragement",
+      "activity": "walking",
+      "message": "A walk today is a walk banked. Find a pace where you could still hold a conversation."
+    },
+    {
+      "id": "enc.running.patience",
+      "type": "encouragement",
+      "activity": "running",
+      "message": "Distance is built patiently. Easy days make the hard ones possible."
+    },
+    {
+      "id": "safety.general",
+      "type": "safety",
+      "activity": null,
+      "message": "WinterArc isn't medical or coaching advice. Choose targets that suit your current ability, build gradually, and stop if something hurts."
+    }
+  ]
+}

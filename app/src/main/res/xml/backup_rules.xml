@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android 11 and lower: back up goals, history and preferences. -->
+<full-backup-content>
+    <include domain="database" path="winterarc.db" />
+    <include domain="sharedpref" path="winterarc_prefs.xml" />
+</full-backup-content>

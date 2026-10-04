@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/celebration_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground">
+
+    <com.app.winterarc.ui.detail.ConfettiView
+        android:id="@+id/confetti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:importantForAccessibility="no" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ViewFlipper
+            android:id="@+id/flipper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:measureAllChildren="false">
+
+            <!-- Choice -->
+            <LinearLayout
+                android:id="@+id/choice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/screen_gutter"
+                android:paddingTop="@dimen/space_xxxl"
+                android:paddingEnd="@dimen/screen_gutter"
+                android:paddingBottom="@dimen/space_xl">
+
+                <ImageView
+                    android:id="@+id/trophy"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/bg_trophy"
+                    android:importantForAccessibility="no"
+                    android:padding="24dp"
+                    android:src="@drawable/ic_trophy" />
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xl"
+                    android:accessibilityHeading="true"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceDisplaySmall" />
+
+                <TextView
+                    android:id="@+id/goal_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_s"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceTitleMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_m"
+                    android:gravity="center"
+                    android:text="@string/celebration_body"
+                    android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xxl"
+                    android:accessibilityHeading="true"
+                    android:text="@string/celebration_question"
+                    android:textAppearance="?attr/textAppearanceTitleLarge" />
+
+                <include android:id="@+id/opt_maintain" layout="@layout/item_option_card" />
+                <include android:id="@+id/opt_continue" layout="@layout/item_option_card" />
+                <include android:id="@+id/opt_complete" layout="@layout/item_option_card" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/later"
+                    style="@style/Widget.WinterArc.Button.Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/space_l"
+                    android:text="@string/celebration_later" />
+            </LinearLayout>
+
+            <!-- Continue: new final target -->
+            <LinearLayout
+                android:id="@+id/continue_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/screen_gutter"
+                android:paddingTop="@dimen/space_xxxl"
+                android:paddingEnd="@dimen/screen_gutter"
+                android:paddingBottom="@dimen/space_xl">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:accessibilityHeading="true"
+                    android:text="@string/continue_title"
+                    android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+
+                <TextView
+                    style="@style/Widget.WinterArc.SectionTitle"
+                    android:text="@string/continue_new_final" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.app.winterarc.ui.common.AmountPickerView
+                        android:id="@+id/new_final"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/space_m" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/new_final_message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_s"
+                    android:accessibilityLiveRegion="polite"
+                    android:textAppearance="?attr/textAppearanceBodyMedium" />
+
+                <TextView
+                    style="@style/Widget.WinterArc.SectionTitle"
+                    android:text="@string/continue_new_hop" />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.app.winterarc.ui.common.AmountPickerView
+                        android:id="@+id/new_hop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/space_m" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <include
+                    android:id="@+id/safety"
+                    layout="@layout/view_safety_notice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xl">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/continue_back"
+                        style="@style/Widget.WinterArc.Button.Outlined"
+                        android:layout_width="wrap_content"
+                        android:layout_height="56dp"
+                        android:text="@string/action_back" />
+
+                    <Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/continue_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="56dp"
+                        android:text="@string/action_save" />
+                </LinearLayout>
+            </LinearLayout>
+        </ViewFlipper>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Motion tokens (ms). Animations are skipped when the system animator scale is 0. -->
+<resources>
+    <integer name="motion_short">150</integer>
+    <integer name="motion_medium">250</integer>
+    <integer name="motion_long">400</integer>
+    <integer name="motion_celebration">2200</integer>
+</resources>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/target_heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_gutter"
+        android:layout_marginTop="@dimen/space_l"
+        android:layout_marginEnd="@dimen/screen_gutter"
+        android:accessibilityHeading="true"
+        android:textAppearance="?attr/textAppearanceHeadlineSmall" />
+
+    <TextView
+        style="@style/Widget.WinterArc.SectionTitle"
+        android:layout_marginStart="@dimen/screen_gutter"
+        android:text="@string/editor_unit" />
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/screen_gutter"
+        android:paddingEnd="@dimen/screen_gutter"
+        android:scrollbars="none">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/unit_chips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:selectionRequired="true"
+            app:singleLine="true"
+            app:singleSelection="true" />
+    </HorizontalScrollView>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/custom_unit_layout"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_gutter"
+        android:layout_marginTop="@dimen/space_m"
+        android:layout_marginEnd="@dimen/screen_gutter"
+        android:hint="@string/editor_custom_unit"
+        app:counterEnabled="true"
+        app:counterMaxLength="16"
+        app:placeholderText="@string/editor_custom_unit_hint">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/custom_unit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionDone"
+            android:inputType="textCapSentences"
+            android:maxLength="16" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Consistency -->
+    <LinearLayout
+        android:id="@+id/consistency_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/screen_gutter"
+        android:paddingEnd="@dimen/screen_gutter">
+
+        <TextView
+            style="@style/Widget.WinterArc.SectionTitle"
+            android:text="@string/editor_target_label" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.app.winterarc.ui.common.AmountPickerView
+                android:id="@+id/consistency_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_m" />
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <!-- Progression -->
+    <LinearLayout
+        android:id="@+id/progression_section"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/Widget.WinterArc.SectionTitle"
+            android:layout_marginStart="@dimen/screen_gutter"
+            android:text="@string/editor_start_target" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_gutter"
+            android:layout_marginEnd="@dimen/screen_gutter">
+
+            <com.app.winterarc.ui.common.AmountPickerView
+                android:id="@+id/start_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_m" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            style="@style/Widget.WinterArc.SectionTitle"
+            android:layout_marginStart="@dimen/screen_gutter"
+            android:text="@string/editor_final_target" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/milestones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingStart="@dimen/screen_gutter"
+            android:paddingEnd="@dimen/screen_gutter"
+            android:paddingTop="@dimen/space_xs"
+            android:paddingBottom="@dimen/space_xs" />
+
+        <TextView
+            android:id="@+id/milestone_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_gutter"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/screen_gutter"
+            android:accessibilityLiveRegion="polite"
+            android:minLines="2"
+            android:textAppearance="?attr/textAppearanceBodyLarge" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/final_picker_card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_gutter"
+            android:layout_marginTop="@dimen/space_m"
+            android:layout_marginEnd="@dimen/screen_gutter">
+
+            <com.app.winterarc.ui.common.AmountPickerView
+                android:id="@+id/final_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_m" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            style="@style/Widget.WinterArc.SectionTitle"
+            android:layout_marginStart="@dimen/screen_gutter"
+            android:text="@string/editor_hop" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_gutter"
+            android:layout_marginEnd="@dimen/screen_gutter">
+
+            <com.app.winterarc.ui.common.AmountPickerView
+                android:id="@+id/hop_picker"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/space_m" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_gutter"
+            android:layout_marginTop="@dimen/space_s"
+            android:layout_marginEnd="@dimen/screen_gutter"
+            android:text="@string/editor_hop_help"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="?attr/colorOnSurfaceVariant" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/plan_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/screen_gutter"
+            android:layout_marginTop="@dimen/space_l"
+            android:layout_marginEnd="@dimen/screen_gutter">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/space_l">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/editor_plan_preview_label"
+                    android:textAppearance="@style/TextAppearance.WinterArc.Overline" />
+
+                <com.app.winterarc.ui.common.StepBarsView
+                    android:id="@+id/plan_bars"
+                    android:layout_width="match_parent"
+                    android:layout_height="64dp"
+                    android:layout_marginTop="@dimen/space_m" />
+
+                <TextView
+                    android:id="@+id/plan_steps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_m"
+                    android:textAppearance="?attr/textAppearanceTitleSmall" />
+
+                <TextView
+                    android:id="@+id/plan_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_xs"
+                    android:textAppearance="?attr/textAppearanceBodyMedium"
+                    android:textColor="?attr/colorOnSurfaceVariant" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/target_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_gutter"
+        android:layout_marginTop="@dimen/space_m"
+        android:layout_marginEnd="@dimen/screen_gutter"
+        android:accessibilityLiveRegion="assertive"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorError"
+        android:visibility="gone" />
+
+    <include
+        android:id="@+id/safety"
+        layout="@layout/view_safety_notice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/screen_gutter"
+        android:layout_marginEnd="@dimen/screen_gutter" />
+</LinearLayout>

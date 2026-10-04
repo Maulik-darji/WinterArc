@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shape, typography and component tokens. -->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="ShapeAppearance.WinterArc.Small" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_s</item>
+    </style>
+    <style name="ShapeAppearance.WinterArc.Medium" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_m</item>
+    </style>
+    <style name="ShapeAppearance.WinterArc.Large" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_l</item>
+    </style>
+    <style name="ShapeAppearance.WinterArc.ExtraLarge" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">@dimen/radius_xl</item>
+    </style>
+
+    <!-- Typography -->
+    <style name="TextAppearance.WinterArc.Display" parent="TextAppearance.Material3.DisplaySmall">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+    <style name="TextAppearance.WinterArc.Headline" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">-0.01</item>
+    </style>
+    <style name="TextAppearance.WinterArc.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="TextAppearance.WinterArc.TitleLarge" parent="TextAppearance.Material3.TitleLarge">
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="TextAppearance.WinterArc.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+    <style name="TextAppearance.WinterArc.Label" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+    <style name="TextAppearance.WinterArc.Overline" parent="TextAppearance.Material3.LabelMedium">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textColor">?attr/colorOnSurfaceVariant</item>
+    </style>
+    <style name="TextAppearance.WinterArc.StatValue" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:fontFeatureSettings">tnum</item>
+    </style>
+    <style name="TextAppearance.WinterArc.BigNumber" parent="TextAppearance.Material3.DisplayMedium">
+        <item name="fontFamily">sans-serif-medium</item>
+        <item name="android:fontFeatureSettings">tnum</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+    <style name="TextAppearance.WinterArc.BottomNavigation" parent="TextAppearance.Material3.LabelSmall">
+        <item name="fontFamily">sans-serif-medium</item>
+    </style>
+
+    <!-- Components -->
+    <style name="Widget.WinterArc.Card" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">?attr/colorSurface</item>
+        <item name="cardElevation">@dimen/elevation_none</item>
+        <item name="strokeWidth">@dimen/stroke_hairline</item>
+        <item name="strokeColor">?attr/colorOutlineVariant</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.WinterArc.Large</item>
+    </style>
+    <style name="Widget.WinterArc.Card.Selectable" parent="Widget.WinterArc.Card">
+        <item name="checkedIcon">@null</item>
+        <item name="android:checkable">true</item>
+        <item name="strokeColor">@color/selectable_card_stroke</item>
+    </style>
+    <style name="Widget.WinterArc.Button" parent="Widget.Material3.Button">
+        <item name="android:minHeight">@dimen/touch_target</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.WinterArc.Medium</item>
+        <item name="android:paddingStart">@dimen/space_xl</item>
+        <item name="android:paddingEnd">@dimen/space_xl</item>
+    </style>
+    <style name="Widget.WinterArc.Button.Tonal" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:minHeight">@dimen/touch_target</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.WinterArc.Medium</item>
+    </style>
+    <style name="Widget.WinterArc.Button.Outlined" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:minHeight">@dimen/touch_target</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.WinterArc.Medium</item>
+    </style>
+    <style name="Widget.WinterArc.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:minHeight">@dimen/touch_target</item>
+    </style>
+    <style name="Widget.WinterArc.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="titleTextAppearance">@style/TextAppearance.WinterArc.TitleLarge</item>
+    </style>
+    <style name="Widget.WinterArc.BottomSheet" parent="Widget.Material3.BottomSheet">
+        <item name="backgroundTint">?attr/colorSurface</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.WinterArc.ExtraLarge</item>
+    </style>
+    <style name="Widget.WinterArc.SectionTitle" parent="">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAppearance">@style/TextAppearance.WinterArc.Overline</item>
+        <item name="android:accessibilityHeading" tools:targetApi="28">true</item>
+        <item name="android:paddingTop">@dimen/space_xl</item>
+        <item name="android:paddingBottom">@dimen/space_s</item>
+    </style>
+    <style name="Widget.WinterArc.BottomNavigation.ActiveIndicator" parent="">
+        <item name="android:color">?attr/colorPrimaryContainer</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.WinterArc.ExtraLarge</item>
+    </style>
+</resources>

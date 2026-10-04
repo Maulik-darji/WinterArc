@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/onboardingFragment"
+        android:name="com.app.winterarc.ui.onboarding.OnboardingFragment"
+        android:label="@string/app_name">
+        <action
+            android:id="@+id/action_onboarding_to_home"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/wa_pop_enter"
+            app:exitAnim="@anim/wa_exit"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_onboarding_to_signup"
+            app:destination="@id/signupPhoneFragment"
+            app:enterAnim="@anim/wa_pop_enter"
+            app:exitAnim="@anim/wa_exit"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/signupPhoneFragment"
+        android:name="com.app.winterarc.ui.auth.SignupPhoneFragment"
+        android:label="@string/signup_title" />
+
+    <fragment
+        android:id="@+id/otpFragment"
+        android:name="com.app.winterarc.ui.auth.OtpFragment"
+        android:label="@string/otp_title" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.app.winterarc.ui.home.HomeFragment"
+        android:label="@string/app_name" />
+
+    <fragment
+        android:id="@+id/communityFragment"
+        android:name="com.app.winterarc.ui.community.CommunityFragment"
+        android:label="@string/community_title" />
+
+    <fragment
+        android:id="@+id/chatsFragment"
+        android:name="com.app.winterarc.ui.chat.ChatsFragment"
+        android:label="@string/chats_title" />
+
+    <fragment
+        android:id="@+id/chatDetailFragment"
+        android:name="com.app.winterarc.ui.chat.ChatDetailFragment"
+        android:label="@string/chats_title">
+        <argument
+            android:name="personName"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.app.winterarc.ui.profile.ProfileFragment"
+        android:label="@string/profile_title" />
+
+    <fragment
+        android:id="@+id/goalEditorFragment"
+        android:name="com.app.winterarc.ui.editor.GoalEditorFragment"
+        android:label="@string/editor_title_new">
+        <argument
+            android:name="goalId"
+            android:defaultValue="-1L"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/goalDetailFragment"
+        android:name="com.app.winterarc.ui.detail.GoalDetailFragment"
+        android:label="@string/app_name">
+        <argument
+            android:name="goalId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="com.app.winterarc.ui.stats.StatsFragment"
+        android:label="@string/stats_title">
+        <argument
+            android:name="goalId"
+            app:argType="long" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/archiveFragment"
+        android:name="com.app.winterarc.ui.archive.ArchiveFragment"
+        android:label="@string/archive_title" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.app.winterarc.ui.settings.SettingsFragment"
+        android:label="@string/settings_title" />
+
+    <fragment
+        android:id="@+id/legalFragment"
+        android:name="com.app.winterarc.ui.legal.LegalFragment"
+        android:label="@string/privacy_title">
+        <argument
+            android:name="doc"
+            app:argType="string" />
+    </fragment>
+</navigation>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="Base.Theme.WinterArc" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/wa_primary</item>
+        <item name="colorOnPrimary">@color/wa_on_primary</item>
+        <item name="colorPrimaryContainer">@color/wa_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/wa_on_primary_container</item>
+        <item name="colorSecondary">@color/wa_secondary</item>
+        <item name="colorOnSecondary">@color/wa_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/wa_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/wa_on_secondary_container</item>
+        <item name="colorTertiary">@color/wa_tertiary</item>
+        <item name="colorOnTertiary">@color/wa_on_tertiary</item>
+        <item name="colorTertiaryContainer">@color/wa_tertiary_container</item>
+        <item name="colorOnTertiaryContainer">@color/wa_on_tertiary_container</item>
+        <item name="colorError">@color/wa_error</item>
+        <item name="colorOnError">@color/wa_on_error</item>
+        <item name="android:colorBackground">@color/wa_background</item>
+        <item name="colorOnBackground">@color/wa_on_surface</item>
+        <item name="colorSurface">@color/wa_surface</item>
+        <item name="colorOnSurface">@color/wa_on_surface</item>
+        <item name="colorSurfaceVariant">@color/wa_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/wa_on_surface_variant</item>
+        <item name="colorSurfaceContainerLowest">@color/wa_surface</item>
+        <item name="colorSurfaceContainerLow">@color/wa_surface</item>
+        <item name="colorSurfaceContainer">@color/wa_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/wa_surface_variant</item>
+        <item name="colorSurfaceContainerHighest">@color/wa_surface_variant</item>
+        <item name="colorOutline">@color/wa_outline</item>
+        <item name="colorOutlineVariant">@color/wa_outline_variant</item>
+
+        <item name="android:windowBackground">@color/wa_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.WinterArc.Small</item>
+        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.WinterArc.Medium</item>
+        <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.WinterArc.Large</item>
+        <item name="shapeAppearanceCornerSmall">@style/ShapeAppearance.WinterArc.Small</item>
+        <item name="shapeAppearanceCornerMedium">@style/ShapeAppearance.WinterArc.Medium</item>
+        <item name="shapeAppearanceCornerLarge">@style/ShapeAppearance.WinterArc.Large</item>
+        <item name="shapeAppearanceCornerExtraLarge">@style/ShapeAppearance.WinterArc.ExtraLarge</item>
+
+        <item name="textAppearanceDisplaySmall">@style/TextAppearance.WinterArc.Display</item>
+        <item name="textAppearanceHeadlineMedium">@style/TextAppearance.WinterArc.Headline</item>
+        <item name="textAppearanceHeadlineSmall">@style/TextAppearance.WinterArc.HeadlineSmall</item>
+        <item name="textAppearanceTitleLarge">@style/TextAppearance.WinterArc.TitleLarge</item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.WinterArc.TitleMedium</item>
+        <item name="textAppearanceLabelLarge">@style/TextAppearance.WinterArc.Label</item>
+
+        <item name="materialCardViewStyle">@style/Widget.WinterArc.Card</item>
+        <item name="materialButtonStyle">@style/Widget.WinterArc.Button</item>
+        <item name="toolbarStyle">@style/Widget.WinterArc.Toolbar</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.WinterArc.BottomSheet</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.WinterArc.Dialog</item>
+        <item name="chipStyle">@style/Widget.Material3.Chip.Filter</item>
+    </style>
+
+    <style name="Theme.WinterArc" parent="Base.Theme.WinterArc">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+    </style>
+
+    <style name="Theme.WinterArc.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/wa_background</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenIconBackgroundColor">@color/wa_launcher_background</item>
+        <item name="postSplashScreenTheme">@style/Theme.WinterArc</item>
+    </style>
+
+    <style name="ThemeOverlay.WinterArc.BottomSheet" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.WinterArc.BottomSheet</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+    <style name="ThemeOverlay.WinterArc.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.WinterArc.ExtraLarge</item>
+    </style>
+
+    <style name="Theme.WinterArc.Celebration" parent="Theme.WinterArc">
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowBackground">@color/wa_background</item>
+    </style>
+</resources>

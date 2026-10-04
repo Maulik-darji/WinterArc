@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/space_l"
+    app:cardBackgroundColor="@color/wa_notice_container"
+    app:strokeWidth="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/space_l">
+
+        <TextView
+            android:id="@+id/safety_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/space_s"
+            android:gravity="center_vertical"
+            android:text="@string/safety_title"
+            android:textAppearance="?attr/textAppearanceTitleSmall"
+            android:textColor="@color/wa_on_notice_container"
+            app:drawableStartCompat="@drawable/ic_info"
+            app:drawableTint="@color/wa_on_notice_container" />
+
+        <TextView
+            android:id="@+id/safety_reasons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:lineSpacingMultiplier="1.1"
+            android:textAppearance="?attr/textAppearanceBodyMedium"
+            android:textColor="@color/wa_on_notice_container" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_s"
+            android:text="@string/safety_footer"
+            android:textAppearance="?attr/textAppearanceBodySmall"
+            android:textColor="@color/wa_on_notice_container" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Six stat tiles in a 2x3 grid. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="-4dp"
+    android:layout_marginEnd="-4dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
+
+        <include android:id="@+id/stat_current" layout="@layout/item_stat_tile" />
+        <include android:id="@+id/stat_longest" layout="@layout/item_stat_tile" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
+
+        <include android:id="@+id/stat_completed" layout="@layout/item_stat_tile" />
+        <include android:id="@+id/stat_rate" layout="@layout/item_stat_tile" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
+
+        <include android:id="@+id/stat_total" layout="@layout/item_stat_tile" />
+        <include android:id="@+id/stat_extra" layout="@layout/item_stat_tile" />
+    </LinearLayout>
+</LinearLayout>

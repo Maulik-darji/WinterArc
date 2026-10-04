@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="wa_background">#FF0E1116</color>
+    <color name="wa_surface">#FF161B22</color>
+    <color name="wa_surface_variant">#FF1F262F</color>
+    <color name="wa_surface_container">#FF1A2028</color>
+    <color name="wa_on_surface">#FFE6E8EB</color>
+    <color name="wa_on_surface_variant">#FF9BA3AE</color>
+    <color name="wa_outline">#FF2F3742</color>
+    <color name="wa_outline_variant">#FF252C35</color>
+
+    <color name="wa_primary">#FF3DDC97</color>
+    <color name="wa_on_primary">#FF00382A</color>
+    <color name="wa_primary_container">#FF0F5C46</color>
+    <color name="wa_on_primary_container">#FFBFF5DD</color>
+    <color name="wa_secondary">#FF5CC8D6</color>
+    <color name="wa_on_secondary">#FF00363D</color>
+    <color name="wa_secondary_container">#FF134E57</color>
+    <color name="wa_on_secondary_container">#FFCDF3F8</color>
+    <color name="wa_tertiary">#FFA594FF</color>
+    <color name="wa_on_tertiary">#FF231566</color>
+    <color name="wa_tertiary_container">#FF3B2E8A</color>
+    <color name="wa_on_tertiary_container">#FFE6E0FF</color>
+    <color name="wa_error">#FFFFB4AB</color>
+    <color name="wa_on_error">#FF690005</color>
+    <color name="wa_notice_container">#FF3D2E10</color>
+    <color name="wa_on_notice_container">#FFFFDEA6</color>
+
+    <color name="wa_grid_empty">#FF222A33</color>
+    <color name="wa_grid_future_stroke">#FF2A323C</color>
+    <color name="wa_grid_rest_marker">#FF6B7380</color>
+    <color name="wa_grid_today_ring">#FFE6E8EB</color>
+
+    <color name="goal_emerald">#FF3DDC97</color>
+    <color name="goal_teal">#FF3CC7D3</color>
+    <color name="goal_violet">#FFA594FF</color>
+    <color name="goal_amber">#FFF5B544</color>
+    <color name="goal_sky">#FF6CB6FF</color>
+    <color name="goal_rose">#FFFF7FA3</color>
+</resources>
