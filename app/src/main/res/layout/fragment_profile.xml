@@ -156,6 +156,7 @@
                         android:orientation="vertical"
                         android:padding="@dimen/space_m">
                         <TextView
+                            android:id="@+id/community_count"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/profile_stat_communities_value"
@@ -170,6 +171,24 @@
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
+
+            <TextView
+                style="@style/Widget.WinterArc.SectionTitle"
+                android:text="@string/profile_created_communities" />
+
+            <LinearLayout
+                android:id="@+id/created_communities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/create_community"
+                style="@style/Widget.WinterArc.Button.Tonal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/profile_create_community"
+                app:icon="@drawable/ic_add" />
 
             <TextView
                 style="@style/Widget.WinterArc.SectionTitle"

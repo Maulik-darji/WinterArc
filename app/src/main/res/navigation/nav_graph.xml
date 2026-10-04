@@ -45,6 +45,27 @@
         android:label="@string/community_title" />
 
     <fragment
+        android:id="@+id/communityDetailFragment"
+        android:name="com.app.winterarc.ui.community.CommunityDetailFragment"
+        android:label="@string/community_chat_title">
+        <argument android:name="communityId" app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/communitySettingsFragment"
+        android:name="com.app.winterarc.ui.community.CommunitySettingsFragment"
+        android:label="@string/community_settings_title">
+        <argument android:name="communityId" app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.app.winterarc.ui.community.UserProfileFragment"
+        android:label="@string/user_profile_title">
+        <argument android:name="userId" app:argType="string" />
+    </fragment>
+
+    <fragment
         android:id="@+id/chatsFragment"
         android:name="com.app.winterarc.ui.chat.ChatsFragment"
         android:label="@string/chats_title" />
