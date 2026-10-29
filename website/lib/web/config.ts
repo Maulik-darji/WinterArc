@@ -10,4 +10,4 @@ export const cloudConfigured = Boolean(supabaseConfig.url && supabaseConfig.key)
 export const allowLocal =
   process.env.NODE_ENV !== "production" || process.env.NEXT_PUBLIC_ALLOW_LOCAL === "true";
 
-export const APP_DOWNLOAD_URL = "/downloads/WinterArc-1.0.0-preview.apk";
+export const APP_DOWNLOAD_URL = "/downloads/WinterArc-1.0.apk";

@@ -107,7 +107,7 @@ export default function Home() {
           <a className="nav-explore" href="/home">Explore</a>
           <a href="/login">Log in</a>
           <Button className="nav-download" asChild>
-            <a href="/downloads/WinterArc-1.0.0-preview.apk" download>
+            <a href="/downloads/WinterArc-1.0.apk" download>
               <Download /> Download
             </a>
           </Button>
@@ -124,14 +124,14 @@ export default function Home() {
           </p>
           <div className="hero-actions">
             <Button className="primary-download" size="lg" asChild>
-              <a href="/downloads/WinterArc-1.0.0-preview.apk" download>
+              <a href="/downloads/WinterArc-1.0.apk" download>
                 <Download /> Download for Android
               </a>
             </Button>
             <a className="text-link" href="#how-it-works">See how WinterArc works</a>
             <a className="text-link" href="/home">Browse posts, no account needed</a>
           </div>
-          <p className="download-note">Preview build · Android 8.0 or newer · 11 MB</p>
+          <p className="download-note">Version 1.0 · Android 8.0 or newer · 12 MB</p>
         </div>
         <PhonePreview />
       </section>
@@ -240,7 +240,7 @@ export default function Home() {
           <Mark />
           <p>Download the current WinterArc preview directly to your Android device.</p>
           <Button className="footer-download" size="lg" asChild>
-            <a href="/downloads/WinterArc-1.0.0-preview.apk" download>
+            <a href="/downloads/WinterArc-1.0.apk" download>
               <Download /> Download WinterArc
             </a>
           </Button>
