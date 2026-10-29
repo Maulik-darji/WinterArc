@@ -26,10 +26,8 @@ public class ChatsFragment extends Fragment {
 
     private record Conversation(String initial, String name, String message, String time, int unread, boolean online) {}
 
-    private final List<Conversation> conversations = List.of(
-            new Conversation("M", "Maya R.", "That sunrise run was worth it!", "9:42", 2, true),
-            new Conversation("A", "Arjun S.", "I’ll try the 45-minute focus block.", "Yesterday", 0, true),
-            new Conversation("N", "Nina K.", "Send me your next book pick 📚", "Tue", 0, false));
+    /** No sample conversations: this stays empty until chat is backed by a real data source. */
+    private final List<Conversation> conversations = List.of();
 
     @Nullable
     @Override
@@ -74,6 +72,7 @@ public class ChatsFragment extends Fragment {
             binding.conversations.addView(item.getRoot());
         }
         binding.empty.setVisibility(matches == 0 ? View.VISIBLE : View.GONE);
+        binding.empty.setText(needle.isEmpty() ? R.string.chats_empty : R.string.chats_empty_search);
     }
 
     @Override

@@ -11,16 +11,20 @@
     <dimen name="space_xxxl">48dp</dimen>
     <dimen name="screen_gutter">20dp</dimen>
 
-    <dimen name="radius_s">8dp</dimen>
-    <dimen name="radius_m">16dp</dimen>
-    <dimen name="radius_l">24dp</dimen>
-    <dimen name="radius_xl">32dp</dimen>
+    <dimen name="radius_xs">4dp</dimen>
+    <dimen name="radius_s">6dp</dimen>
+    <dimen name="radius_m">10dp</dimen>
+    <dimen name="radius_l">12dp</dimen>
+    <dimen name="radius_xl">16dp</dimen>
 
     <dimen name="elevation_none">0dp</dimen>
     <dimen name="elevation_low">1dp</dimen>
     <dimen name="elevation_raised">3dp</dimen>
 
     <dimen name="touch_target">48dp</dimen>
+    <dimen name="button_height">52dp</dimen>
+    <dimen name="nav_bar_divider">1dp</dimen>
+    <dimen name="nav_create_icon">32dp</dimen>
     <dimen name="icon_badge">44dp</dimen>
     <dimen name="icon_badge_large">64dp</dimen>
     <dimen name="stroke_hairline">1dp</dimen>
@@ -29,6 +33,10 @@
     <dimen name="grid_cell_compact">9dp</dimen>
     <dimen name="grid_gap">3dp</dimen>
     <dimen name="grid_gap_compact">2dp</dimen>
-    <dimen name="grid_cell_radius">3dp</dimen>
+    <dimen name="grid_cell_radius">2dp</dimen>
     <dimen name="grid_label_text">11sp</dimen>
+    <!-- Zoomed grid: big enough to hit the exact day with a finger. -->
+    <dimen name="grid_cell_large">34dp</dimen>
+    <dimen name="grid_gap_large">5dp</dimen>
+    <dimen name="grid_label_text_large">13sp</dimen>
 </resources>

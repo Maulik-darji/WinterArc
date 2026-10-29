@@ -47,6 +47,7 @@
     <string name="action_skip">Skip</string>
     <string name="action_save">Save</string>
     <string name="action_cancel">Cancel</string>
+    <string name="action_discard">Discard</string>
     <string name="action_done">Done</string>
     <string name="action_close">Close</string>
     <string name="action_delete">Delete</string>
@@ -89,7 +90,7 @@
 
     <!-- Primary navigation -->
     <string name="nav_home">Home</string>
-    <string name="nav_community">Community</string>
+    <string name="nav_feed">Feed</string>
     <string name="nav_new_goal">New</string>
     <string name="nav_chats">Chats</string>
     <string name="nav_profile">Profile</string>
@@ -97,7 +98,7 @@
     <!-- Community -->
     <string name="community_title">Community</string>
     <string name="community_intro">Grow alongside people working toward goals like yours.</string>
-    <string name="community_tab_posts">Posts &amp; discover</string>
+    <string name="community_tab_posts">Discover</string>
     <string name="community_tab_mine">My communities</string>
     <string name="community_share_prompt">What are you working toward today?</string>
     <string name="community_share_action">Share progress</string>
@@ -178,8 +179,8 @@
     <string name="chats_intro">Keep in touch with the people you meet in your communities.</string>
     <string name="chats_search_hint">Search connections</string>
     <string name="chats_connections">Your connections</string>
+    <string name="chats_empty">No conversations yet. Join a community to meet people working toward similar goals.</string>
     <string name="chats_empty_search">No connections match that search.</string>
-    <string name="chat_online">Online</string>
     <string name="chat_message_hint">Write a message</string>
     <string name="chat_send">Send message</string>
     <string name="chat_today">Today</string>
@@ -202,7 +203,6 @@
     <string name="profile_create_community">Create your first community</string>
     <string name="profile_archive">Goal archive</string>
     <string name="profile_settings">Settings</string>
-    <string name="profile_phone_hidden">Signed in securely</string>
     <string name="profile_default_initial">W</string>
     <string name="profile_stat_zero">0</string>
     <string name="profile_stat_communities_value">3</string>
@@ -447,6 +447,28 @@
     <string name="day_detail_level">Progression step</string>
     <string name="day_detail_reason">Reason</string>
     <string name="day_detail_nothing">Nothing logged for this day.</string>
+    <string name="day_detail_missed_hint">Forgot to check in? You can still mark this day as done.</string>
+    <string name="day_detail_mark_done">Mark as done</string>
+    <string name="profile_change_banner">Change banner</string>
+    <string name="profile_remove_banner">Remove banner</string>
+    <string name="profile_change_photo">Change profile photo</string>
+    <string name="profile_remove_photo">Remove photo</string>
+    <string name="profile_uploading">Uploading image</string>
+    <string name="profile_bio_hint">Bio</string>
+    <string name="profile_handle_note">Your %1$s handle stays the same.</string>
+    <string name="profile_image_failed">That image couldn\'t be used. Try another one.</string>
+    <string name="profile_image_upload_failed">Couldn\'t upload the image. Check your connection and try again.</string>
+    <string name="profile_name_error">Use 2 to 50 characters.</string>
+    <string name="profile_bio_error">Use at most 160 characters.</string>
+    <string name="profile_saved">Profile updated.</string>
+    <string name="grid_zoom_title">Pick a day</string>
+    <string name="grid_zoom_body">Tap a square to see that day, or mark a missed day as done.</string>
+    <string name="grid_tap_to_enlarge">Tap to enlarge the grid</string>
+    <string name="day_detail_clear">Clear this day</string>
+    <string name="day_detail_clear_locked">Later days built on this one, so it can\'t be cleared here.</string>
+    <string name="day_marked_done">Day marked as done.</string>
+    <string name="day_cleared">Check-in cleared.</string>
+    <string name="day_action_failed">That day can\'t be changed.</string>
 
     <!-- Check-in sheets -->
     <string name="log_title">Log progress</string>
@@ -516,64 +538,150 @@
     <string name="settings_terms">Terms &amp; disclaimer</string>
     <string name="settings_onboarding">Show introduction again</string>
     <string name="settings_version">Version %1$s</string>
-    <string name="settings_section_demo">Demo tools (debug builds only)</string>
-    <string name="settings_demo_load">Load demo scenario</string>
-    <string name="settings_demo_load_desc">Replaces all goals with several months of realistic history.</string>
-    <string name="settings_demo_clear">Clear all data</string>
-    <string name="settings_demo_confirm">This replaces every goal on this device. Continue?</string>
-    <string name="settings_demo_loaded">Demo scenario loaded.</string>
-    <string name="settings_demo_cleared">All data cleared.</string>
 
     <!-- Legal -->
     <string name="privacy_title">Privacy policy</string>
     <string name="terms_title">Terms &amp; disclaimer</string>
-    <string name="privacy_body">Last updated: 2 October 2026\n\nWinterArc is designed to work entirely on your device.\n\nWhat we store\nYour goals, check-ins, notes, milestones and preferences are stored locally on this device.\n\nYour account\nTo create an account you provide your mobile number. It is sent to our authentication provider (Google Firebase Authentication) only to deliver a one-time code by SMS and to sign you in. We do not use your number for marketing, and it is never shown to other people.\n\nWhat we share\nYour goals, notes and history stay on this device; this version does not upload them. Your mobile number is shared with Firebase Authentication for verification only. Analytics and crash reporting are disabled.\n\nBackups\nIf you use Android\'s device backup, your WinterArc data may be included in that backup under your Google account, according to your device settings.\n\nNotifications\nReminders are scheduled on your device. No reminder content leaves your device.\n\nDeleting your data\nYou can delete any goal from the archive. Uninstalling the app removes all data stored on this device. To delete your account and the phone number held by the authentication provider, contact the developer through the app\'s store listing.\n\nChanges\nIf a future version adds optional cloud sync or analytics, this policy will be updated and you will be asked before any data is shared.\n\nContact\nQuestions about privacy can be sent to the developer through the app\'s store listing.</string>
-    <string name="terms_body">Last updated: 2 October 2026\n\nNot medical advice\nWinterArc is a personal goal tracker. It does not provide medical, health, fitness or coaching advice, and it cannot assess whether an activity is safe for you.\n\nYour responsibility\nChoose targets that suit your current ability and health. Increase gradually, include rest days, and stop if you feel pain, dizziness or discomfort. If you have a health condition, are pregnant, or are returning after injury, consider speaking with a qualified health professional before starting a new activity plan.\n\nSafety notices\nThe app may show gentle notices for plans that increase quickly or involve long distances. These notices are general information, not a diagnosis or a personalised assessment.\n\nContent\nFacts and quotations in the app include their source. General encouraging messages are written by WinterArc and are not attributed to any person.\n\nNo warranty\nThe app is provided as is. While we work hard to keep your data safe, please keep device backups if your history is important to you.\n\nChanges\nThese terms may be updated in future versions of the app.</string>
+    <string name="privacy_body">Last updated: 24 October 2026\n\nWinterArc is designed to work entirely on your device.\n\nWhat we store\nYour goals, check-ins, notes, milestones and preferences are stored locally on this device.\n\nYour account\nYou create an account with your email address and a password, or with your Google account. Your name, email address and password are handled by our authentication provider (Supabase Authentication) to create your account, sign you in, verify your email and reset your password. We never see or store your password. We do not use your email address for marketing, and it is never shown to other people; other members see only your display name and @handle.\n\nWhat we share\nYour goals, notes and history stay on this device; this version does not upload them. Your email address is shared with Supabase Authentication for sign-in only. Posts, comments and likes you publish in the Feed are visible to other members under your display name and @handle, and you can edit or delete your own posts and comments at any time. Analytics and crash reporting are disabled.\n\nBackups\nIf you use Android\'s device backup, your WinterArc data may be included in that backup under your Google account, according to your device settings.\n\nNotifications\nReminders are scheduled on your device. No reminder content leaves your device.\n\nDeleting your data\nYou can delete any goal from the archive. Uninstalling the app removes all data stored on this device. To delete your account and the email address held by the authentication provider, contact the developer through the app\'s store listing.\n\nChanges\nIf a future version adds optional cloud sync or analytics, this policy will be updated and you will be asked before any data is shared.\n\nContact\nQuestions about privacy can be sent to the developer through the app\'s store listing.</string>
+    <string name="terms_body">Last updated: 24 October 2026\n\nNot medical advice\nWinterArc is a personal goal tracker. It does not provide medical, health, fitness or coaching advice, and it cannot assess whether an activity is safe for you.\n\nYour responsibility\nChoose targets that suit your current ability and health. Increase gradually, include rest days, and stop if you feel pain, dizziness or discomfort. If you have a health condition, are pregnant, or are returning after injury, consider speaking with a qualified health professional before starting a new activity plan.\n\nSafety notices\nThe app may show gentle notices for plans that increase quickly or involve long distances. These notices are general information, not a diagnosis or a personalised assessment.\n\nContent\nFacts and quotations in the app include their source. General encouraging messages are written by WinterArc and are not attributed to any person.\n\nNo warranty\nThe app is provided as is. While we work hard to keep your data safe, please keep device backups if your history is important to you.\n\nChanges\nThese terms may be updated in future versions of the app.</string>
 
-    <!-- Sign up with mobile number -->
-    <string name="signup_title">Create your account</string>
-    <string name="signup_body">Sign up with your mobile number. We\'ll text you a 6-digit code to confirm it\'s you.</string>
-    <string name="signup_country">Country or region</string>
-    <string name="signup_country_cd">Country code %1$s, %2$s. Double-tap to change.</string>
-    <string name="signup_country_item">%1$s %2$s (%3$s)</string>
-    <string name="signup_phone_label">Mobile number</string>
-    <string name="signup_send_code">Send code</string>
-    <string name="signup_sending">Sending…</string>
-    <string name="signup_consent">By continuing you agree to the Terms and Privacy policy. Standard SMS rates may apply.</string>
-    <string name="signup_terms_link">Terms</string>
-    <string name="signup_privacy_link">Privacy policy</string>
-    <string name="signup_why">Your number is used only to sign you in and keep your progress safe. It is never shown to anyone else.</string>
-    <string name="signup_unavailable">Sign-up isn\'t available in this build yet. Please try again after updating the app.</string>
-    <string name="signup_test_hint">Test mode: no SMS is sent. Use code %1$s.</string>
-    <string name="phone_error_empty">Enter your mobile number.</string>
-    <string name="phone_error_characters">Use digits only, without the country code.</string>
-    <string name="phone_error_short">That number looks too short for %1$s.</string>
-    <string name="phone_error_long">That number looks too long for %1$s.</string>
 
-    <string name="otp_title">Enter the code</string>
-    <string name="otp_body">We sent a 6-digit code to %1$s.</string>
-    <string name="otp_input_cd">Verification code, 6 digits</string>
-    <string name="otp_change_number">Change number</string>
-    <string name="otp_verify">Verify</string>
-    <string name="otp_verifying">Verifying…</string>
-    <string name="otp_resend">Resend code</string>
-    <string name="otp_resend_in">Resend code in %1$s</string>
-    <string name="otp_resent">A new code is on its way.</string>
-    <string name="otp_autofill_note">The code fills in automatically if your phone allows it.</string>
-    <string name="signup_welcome">You\'re signed in. Welcome to WinterArc.</string>
 
-    <string name="auth_error_invalid_phone">That number doesn\'t look right. Check it and try again.</string>
-    <string name="auth_error_invalid_code">That code didn\'t match. Check the SMS and try again.</string>
-    <string name="auth_error_code_expired">That code has expired. Request a new one.</string>
-    <string name="auth_error_too_many">Too many attempts. Please wait a little and try again.</string>
-    <string name="auth_error_quota">We can\'t send more codes right now. Please try again later.</string>
-    <string name="auth_error_network">No connection. Check your internet and try again.</string>
-    <string name="auth_error_not_configured">Sign-up isn\'t available in this build yet.</string>
-    <string name="auth_error_unknown">Something went wrong sending the code. Please try again.</string>
 
     <string name="settings_section_account">Account</string>
     <string name="settings_signed_in_as">Signed in as %1$s</string>
     <string name="settings_sign_out">Sign out</string>
     <string name="settings_sign_out_title">Sign out?</string>
-    <string name="settings_sign_out_body">Your goals stay on this device. You\'ll need your mobile number and a new code to sign in again.</string>
+    <string name="settings_sign_out_body">Your goals stay on this device. You\'ll need your email and password, or Google, to sign in again.</string>
+
+    <!-- Accounts: Google or email + password -->
+    <string name="auth_welcome_title">Turn goals into a visible record</string>
+    <string name="auth_welcome_body">Sign in to keep your progress safe and join the conversation.</string>
+    <string name="auth_continue_google">Continue with Google</string>
+    <string name="auth_or">or</string>
+    <string name="auth_create_account">Create account</string>
+    <string name="auth_log_in">Log in</string>
+    <string name="auth_signup_title">Create your account</string>
+    <string name="auth_signup_body">Use your email and a password you don\'t use anywhere else.</string>
+    <string name="auth_login_title">Welcome back</string>
+    <string name="auth_login_body">Log in with the email you signed up with.</string>
+    <string name="auth_name">Your name</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_confirm_password">Confirm password</string>
+    <string name="auth_password_helper">At least 8 characters, with a letter and a number.</string>
+    <string name="auth_toggle_password">Show or hide password</string>
+    <string name="auth_forgot_password">Forgot password?</string>
+    <string name="auth_have_account">Already have an account?</string>
+    <string name="auth_no_account">New to WinterArc?</string>
+    <string name="auth_working">Please wait…</string>
+    <string name="auth_consent">By continuing you agree to the Terms and Privacy policy.</string>
+    <string name="auth_terms_link">Terms</string>
+    <string name="auth_privacy_link">Privacy policy</string>
+    <string name="auth_unavailable">Sign-in isn\'t available in this build yet. Please try again after updating the app.</string>
+    <string name="auth_reset_sent">If an account exists for %1$s, a reset link is on its way.</string>
+    <string name="auth_reset_title">Reset your password</string>
+    <string name="auth_reset_body">We\'ll email you a link to choose a new password.</string>
+    <string name="auth_reset_send">Send link</string>
+
+    <string name="auth_problem_name_empty">Enter your name.</string>
+    <string name="auth_problem_name_long">Keep your name under 50 characters.</string>
+    <string name="auth_problem_email_empty">Enter your email.</string>
+    <string name="auth_problem_email_invalid">That email doesn\'t look right.</string>
+    <string name="auth_problem_password_empty">Enter a password.</string>
+    <string name="auth_problem_password_short">Use at least 8 characters.</string>
+    <string name="auth_problem_password_long">Use at most 128 characters.</string>
+    <string name="auth_problem_password_letter">Include at least one letter.</string>
+    <string name="auth_problem_password_number">Include at least one number.</string>
+    <string name="auth_problem_confirm_empty">Re-enter your password.</string>
+    <string name="auth_problem_passwords_differ">Passwords don\'t match.</string>
+
+    <string name="auth_error_invalid_email">That email doesn\'t look right.</string>
+    <string name="auth_error_email_in_use">An account already exists for this email. Try logging in.</string>
+    <string name="auth_error_wrong_credentials">Email or password is incorrect.</string>
+    <string name="auth_error_weak_password">Choose a stronger password.</string>
+    <string name="auth_error_disabled">This account has been disabled.</string>
+    <string name="auth_error_too_many">Too many attempts. Please wait a little and try again.</string>
+    <string name="auth_error_network">No connection. Check your internet and try again.</string>
+    <string name="auth_error_google_no_account">No Google account is available on this device.</string>
+    <string name="auth_error_not_configured">Sign-in isn\'t available in this build yet.</string>
+    <string name="auth_error_not_confirmed">Confirm your email address first: open the link we sent you, then log in.</string>
+    <string name="auth_confirm_title">Check your email</string>
+    <string name="auth_confirm_body">We sent a confirmation link to %1$s. Open it to activate your account, then log in.</string>
+    <string name="auth_error_unknown">Something went wrong. Please try again.</string>
+
+    <!-- Feed: posts and threaded comments -->
+    <string name="feed_tab_posts">Posts</string>
+    <string name="feed_tab_communities">Communities</string>
+    <string name="feed_filter_for_you">For you</string>
+    <string name="feed_filter_following">Following</string>
+    <string name="feed_compose">Post</string>
+    <string name="feed_compose_cd">Write a post</string>
+    <string name="feed_compose_title">New post</string>
+    <string name="feed_compose_hint">What\'s happening with your goals?</string>
+    <string name="feed_compose_send">Post</string>
+    <string name="feed_compose_discard">Discard this post?</string>
+    <string name="feed_post_title">Post</string>
+    <string name="feed_empty_title">No posts yet</string>
+    <string name="feed_empty_body">Share a win, a setback or what you\'re working on. Your post starts the conversation.</string>
+    <string name="feed_following_empty">Posts from people you follow show up here.</string>
+    <string name="feed_edited">Edited</string>
+    <string name="feed_dot_separator">·</string>
+    <string name="feed_now">now</string>
+    <string name="feed_minutes">%1$dm</string>
+    <string name="feed_hours">%1$dh</string>
+    <string name="feed_days">%1$dd</string>
+    <string name="feed_reply_cd">Reply. %1$d replies</string>
+    <string name="feed_like_cd">Like. %1$d likes</string>
+    <string name="feed_unlike_cd">Unlike. %1$d likes</string>
+    <string name="feed_share_cd">Share post</string>
+    <string name="feed_more_cd">More options</string>
+    <string name="feed_share_text">%1$s on WinterArc: %2$s</string>
+    <string name="feed_edit_post">Edit post</string>
+    <string name="feed_delete_post">Delete post</string>
+    <string name="feed_delete_post_title">Delete post?</string>
+    <string name="feed_delete_post_body">This removes the post and all of its replies. This can\'t be undone.</string>
+    <string name="feed_post_deleted">Post deleted.</string>
+    <string name="feed_post_published">Posted.</string>
+    <string name="feed_edit_title">Edit post</string>
+    <string name="feed_save">Save</string>
+    <string name="feed_post_saved">Post updated.</string>
+    <string name="feed_view_profile">View profile of %1$s</string>
+    <string name="feed_close_cd">Close</string>
+    <string name="feed_member_name">WinterArc member</string>
+    <string name="feed_member_handle">\@member</string>
+    <string name="feed_remaining_cd">%1$d characters left</string>
+    <string name="feed_post_cd">%1$s, %2$s, %3$s: %4$s</string>
+    <string name="feed_post_missing">This post was deleted.</string>
+    <plurals name="feed_likes_label">
+        <item quantity="one">&lt;b>%1$d&lt;/b> Like</item>
+        <item quantity="other">&lt;b>%1$d&lt;/b> Likes</item>
+    </plurals>
+    <plurals name="feed_replies_label">
+        <item quantity="one">&lt;b>%1$d&lt;/b> Reply</item>
+        <item quantity="other">&lt;b>%1$d&lt;/b> Replies</item>
+    </plurals>
+    <string name="comment_hint">Post your reply</string>
+    <string name="comment_reply_hint">Reply to %1$s</string>
+    <string name="comment_replying_to">Replying to %1$s</string>
+    <string name="comment_cancel_reply">Cancel reply</string>
+    <string name="comment_send">Reply</string>
+    <string name="comment_reply">Reply</string>
+    <string name="comment_edit">Edit</string>
+    <string name="comment_delete">Delete</string>
+    <string name="comment_edit_title">Edit comment</string>
+    <string name="comment_delete_title">Delete comment?</string>
+    <string name="comment_delete_body">Replies to it will stay visible. This can\'t be undone.</string>
+    <string name="comment_deleted">This comment was deleted.</string>
+    <string name="comments_empty">No replies yet. Start the conversation.</string>
+    <string name="comment_send_cd">Send reply</string>
+    <string name="comment_saved">Comment updated.</string>
+    <string name="comment_removed">Comment deleted.</string>
+    <string name="comment_thread_cd">Reply, level %1$d</string>
+    <string name="comment_cd">%1$s, %2$s: %3$s</string>
+    <string name="feed_error_invalid">Write something first, within the character limit.</string>
+    <string name="feed_error_denied">You can only change your own posts and comments.</string>
+    <string name="feed_error_unavailable">Couldn\'t reach WinterArc. Check your connection and try again.</string>
+    <string name="feed_error_missing">That was deleted.</string>
+    <string name="communities_discover_empty">No communities yet. Create the first one for a goal you care about.</string>
 </resources>

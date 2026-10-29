@@ -4,10 +4,8 @@ import android.util.Log;
 
 import com.app.winterarc.core.analytics.Analytics;
 import com.app.winterarc.core.analytics.CrashReporter;
-import com.app.winterarc.data.auth.FakePhoneAuthRepository;
+import com.app.winterarc.data.auth.LocalTestAuthRepository;
 import com.app.winterarc.domain.auth.AuthRepository;
-import com.app.winterarc.demo.DebugDemoTools;
-import com.app.winterarc.demo.DemoTools;
 
 import javax.inject.Named;
 
@@ -17,7 +15,7 @@ import dagger.Provides;
 import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 
-/** Debug bindings: analytics and errors go to Logcat, and demo tools are available. */
+/** Debug bindings: analytics and errors go to Logcat. */
 @Module
 @InstallIn(SingletonComponent.class)
 public abstract class BuildTypeModule {
@@ -43,11 +41,8 @@ public abstract class BuildTypeModule {
         };
     }
 
-    @Binds
-    abstract DemoTools demoTools(DebugDemoTools impl);
-
-    /** Fake OTP provider (code 123456) when Firebase is not configured. */
+    /** Local test accounts when Supabase is not configured (or in instrumented tests). */
     @Binds
     @Named(AuthModule.FALLBACK)
-    abstract AuthRepository fallbackAuth(FakePhoneAuthRepository impl);
+    abstract AuthRepository fallbackAuth(LocalTestAuthRepository impl);
 }

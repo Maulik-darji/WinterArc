@@ -49,8 +49,11 @@ public class ContributionGridView extends View {
 
     @ColorInt private int goalColor;
 
-    private final float labelTextSize;
+    private float labelTextSize;
     private boolean compact;
+    private boolean large;
+    private final Paint dayNumber = new Paint(Paint.ANTI_ALIAS_FLAG);
+    @ColorInt private final int dayNumberColor;
     private float cell;
     private float gap;
     private float labelWidth;
@@ -71,6 +74,8 @@ public class ContributionGridView extends View {
         labelTextSize = getResources().getDimension(R.dimen.grid_label_text);
         text.setTextSize(labelTextSize);
         text.setColor(ContextCompat.getColor(context, R.color.wa_on_surface_variant));
+        dayNumberColor = ContextCompat.getColor(context, R.color.wa_on_surface_variant);
+        dayNumber.setTextAlign(Paint.Align.LEFT);
         accessibility = new GridAccessibility(this);
         ViewCompat.setAccessibilityDelegate(this, accessibility);
         setCompact(false);
@@ -92,6 +97,39 @@ public class ContributionGridView extends View {
         requestLayout();
     }
 
+    /**
+     * Large grids (the zoom sheet): about 2.5x bigger squares with the day of the month in each,
+     * so a finger lands on the intended day.
+     */
+    public void setLarge(boolean value) {
+        large = value;
+        compact = false;
+        Context c = getContext();
+        cell = getResources().getDimension(value ? R.dimen.grid_cell_large : R.dimen.grid_cell);
+        gap = getResources().getDimension(value ? R.dimen.grid_gap_large : R.dimen.grid_gap);
+        labelTextSize = getResources().getDimension(value ? R.dimen.grid_label_text_large : R.dimen.grid_label_text);
+        text.setTextSize(labelTextSize);
+        dayNumber.setTextSize(cell * 0.34f);
+        labelWidth = Ui.dp(c, value ? 34 : 26);
+        labelHeight = labelTextSize + Ui.dp(c, 8);
+        setImportantForAccessibility(IMPORTANT_FOR_ACCESSIBILITY_AUTO);
+        setFocusable(true);
+        requestLayout();
+        invalidate();
+    }
+
+    /** Horizontal centre of the week column containing {@code date}, or -1 when not shown. */
+    public float centerXOf(java.time.LocalDate date) {
+        Heatmap h = heatmap;
+        if (h == null) return -1;
+        for (int w = 0; w < h.weeks.size(); w++) {
+            for (Heatmap.Day d : h.weeks.get(w).days()) {
+                if (d.date().equals(date)) return getPaddingLeft() + labelWidth + w * (cell + gap) + cell / 2f;
+            }
+        }
+        return -1;
+    }
+
     public void setData(Heatmap heatmap, @ColorInt int goalColor, Locale locale) {
         this.heatmap = heatmap;
         this.goalColor = goalColor;
@@ -103,7 +141,30 @@ public class ContributionGridView extends View {
 
     public void setOnDayClickListener(@Nullable OnDayClickListener l) {
         listener = l;
-        setClickable(l != null);
+        setClickable(l != null || tapAnywhere != null);
+    }
+
+    /**
+     * For small grids: any tap (not only on a selectable day) reports the nearest day, so the
+     * caller can open the enlarged grid there. Exact day picking happens in the large grid.
+     */
+    public void setOnTapAnywhereListener(@Nullable OnDayClickListener l) {
+        tapAnywhere = l;
+        setClickable(l != null || listener != null);
+    }
+
+    @Nullable private OnDayClickListener tapAnywhere;
+
+    /** The day under (x, y), clamped to the grid so taps on labels or margins still map to a day. */
+    @Nullable
+    Heatmap.Day nearestDay(float x, float y) {
+        Heatmap h = heatmap;
+        if (h == null || h.weeks.isEmpty()) return null;
+        int w = (int) Math.floor((x - getPaddingLeft() - offsetX() - labelWidth) / (cell + gap));
+        int d = (int) Math.floor((y - getPaddingTop() - labelHeight) / (cell + gap));
+        w = Math.max(0, Math.min(h.weeks.size() - 1, w));
+        d = Math.max(0, Math.min(6, d));
+        return h.weeks.get(w).days().get(d);
     }
 
     /** Number of week columns that fit in {@code widthPx} in full (non-compact) mode. */
@@ -172,6 +233,12 @@ public class ContributionGridView extends View {
 
     private void drawCell(Canvas canvas, Heatmap.Day day, RectF r) {
         painter.draw(canvas, day.level(), day.isToday(), r, goalColor);
+        if (!large || day.level() == Heatmap.CellLevel.OUTSIDE) return;
+        boolean filled = day.level() == Heatmap.CellLevel.COMPLETED || day.level() == Heatmap.CellLevel.EXCEEDED;
+        dayNumber.setColor(filled ? 0xFFFFFFFF : dayNumberColor);
+        dayNumber.setAlpha(day.level() == Heatmap.CellLevel.FUTURE ? 110 : 235);
+        float inset = cell * 0.13f;
+        canvas.drawText(String.valueOf(day.date().getDayOfMonth()), r.left + inset, r.top + inset + dayNumber.getTextSize() * 0.8f, dayNumber);
     }
 
     /** Horizontal offset that centers compact grids narrower than their view. */
@@ -205,6 +272,16 @@ public class ContributionGridView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (tapAnywhere != null) {
+            if (event.getAction() == MotionEvent.ACTION_DOWN) return true;
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                Heatmap.Day day = nearestDay(event.getX(), event.getY());
+                performClick();
+                if (day != null) tapAnywhere.onDayClick(day);
+                return true;
+            }
+            return super.onTouchEvent(event);
+        }
         if (listener == null || compact) return super.onTouchEvent(event);
         if (event.getAction() == MotionEvent.ACTION_DOWN) return true;
         if (event.getAction() == MotionEvent.ACTION_UP) {

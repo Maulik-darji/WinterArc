@@ -24,7 +24,7 @@ import com.app.winterarc.ui.common.ContributionGridView;
 import com.app.winterarc.ui.common.GoalVisuals;
 import com.app.winterarc.ui.common.Nav;
 import com.app.winterarc.ui.common.Ui;
-import com.app.winterarc.ui.detail.DayDetailSheet;
+import com.app.winterarc.ui.common.Haptics;
 import com.app.winterarc.ui.detail.GoalDetailFragment;
 
 import java.time.LocalDate;
@@ -34,7 +34,7 @@ import java.time.temporal.WeekFields;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class StatsFragment extends Fragment implements DayDetailSheet.Host {
+public class StatsFragment extends Fragment implements com.app.winterarc.ui.detail.GridZoomSheet.Host {
     private FragmentStatsBinding binding;
     private StatsViewModel viewModel;
     @Nullable private StatsViewModel.StatsState current;
@@ -53,13 +53,27 @@ public class StatsFragment extends Fragment implements DayDetailSheet.Host {
         Ui.applySystemBarPadding(binding.statsRoot, true, false);
         Ui.applySystemBarPadding(binding.scroll, false, true);
         binding.toolbar.setNavigationOnClickListener(v -> Nav.up(this));
-        binding.grid.setOnDayClickListener(day -> {
-            if (getChildFragmentManager().findFragmentByTag("day") == null) {
-                DayDetailSheet.newInstance(day.date()).show(getChildFragmentManager(), "day");
+        // Tap enlarges the year grid around that week; the exact day is chosen there.
+        com.app.winterarc.ui.common.ContributionGridView.OnDayClickListener zoom = day -> {
+            if (getChildFragmentManager().findFragmentByTag(com.app.winterarc.ui.detail.GridZoomSheet.TAG) == null) {
+                Haptics.tick(binding.grid);
+                com.app.winterarc.ui.detail.GridZoomSheet.newInstance(
+                                com.app.winterarc.ui.detail.GridZoomSheet.focusFor(day, hostToday()))
+                        .show(getChildFragmentManager(), com.app.winterarc.ui.detail.GridZoomSheet.TAG);
             }
-        });
+        };
+        binding.grid.setOnTapAnywhereListener(zoom);
+        binding.grid.setOnDayClickListener(zoom);
         viewModel.setFirstDayOfWeek(WeekFields.of(Formats.locale(requireContext())).getFirstDayOfWeek());
         viewModel.state().observe(getViewLifecycleOwner(), this::render);
+        viewModel.messages().observe(getViewLifecycleOwner(), event -> {
+            Integer text = event.consume();
+            if (text == null) return;
+            if (text == R.string.day_action_failed) Haptics.reject(binding.getRoot());
+            else Haptics.confirm(binding.getRoot());
+            com.google.android.material.snackbar.Snackbar.make(binding.statsRoot, text,
+                    com.google.android.material.snackbar.Snackbar.LENGTH_SHORT).show();
+        });
     }
 
     private void render(StatsViewModel.StatsState s) {
@@ -70,6 +84,8 @@ public class StatsFragment extends Fragment implements DayDetailSheet.Host {
         binding.goalTitle.setText(goal.title());
         binding.grid.setData(s.heatmap(), color, ContributionGridView.localeOf(c));
         binding.legend.setGoalColor(color);
+        if (getChildFragmentManager().findFragmentByTag(com.app.winterarc.ui.detail.GridZoomSheet.TAG)
+                instanceof com.app.winterarc.ui.detail.GridZoomSheet zoom) zoom.refresh();
         if (!scrolledToEnd) {
             // Most recent weeks are on the right; start there.
             binding.gridScroll.post(() -> binding.gridScroll.fullScroll(View.FOCUS_RIGHT));
@@ -154,6 +170,27 @@ public class StatsFragment extends Fragment implements DayDetailSheet.Host {
     @Override
     public LocalDate hostToday() {
         return current == null ? LocalDate.now() : current.today();
+    }
+
+    @Override
+    public void hostMarkDone(LocalDate date) {
+        viewModel.completeDay(date);
+    }
+
+    @Nullable
+    @Override
+    public com.app.winterarc.domain.engine.Heatmap hostHeatmap() {
+        return current == null ? null : current.heatmap();
+    }
+
+    @Override
+    public int hostGoalColor() {
+        return current == null ? 0 : GoalVisuals.color(requireContext(), current.goal().color());
+    }
+
+    @Override
+    public void hostClearDay(LocalDate date) {
+        viewModel.clearDay(date);
     }
 
     @Override

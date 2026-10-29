@@ -1,6 +1,7 @@
 package com.app.winterarc.ui.home;
 
 import android.os.Bundle;
+import com.app.winterarc.ui.common.Haptics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,7 +84,7 @@ public class HomeFragment extends Fragment implements HomeAdapter.Callbacks {
                 Snackbar.make(binding.homeRoot, R.string.error_generic, Snackbar.LENGTH_LONG).show();
                 return;
             }
-            Ui.confirmHaptic(binding.homeRoot, viewModel.hapticsEnabled());
+            Haptics.confirm(binding.homeRoot);
             if (m.kind() == HomeViewModel.Message.MILESTONE) {
                 // The celebration lives on the goal screen.
                 Nav.go(this, R.id.goalDetailFragment, Nav.goal(m.undoGoalId()));
@@ -91,7 +92,10 @@ public class HomeFragment extends Fragment implements HomeAdapter.Callbacks {
             }
             Snackbar.make(binding.homeRoot, getString(R.string.detail_completed_snack, m.goalTitle()), Snackbar.LENGTH_LONG)
                     .setAnchorView(requireActivity().findViewById(R.id.bottom_navigation))
-                    .setAction(R.string.action_undo, v -> viewModel.undo(m.undoGoalId()))
+                    .setAction(R.string.action_undo, v -> {
+                        Haptics.soft(v);
+                        viewModel.undo(m.undoGoalId());
+                    })
                     .show();
         });
     }

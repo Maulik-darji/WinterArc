@@ -19,13 +19,18 @@ import com.app.winterarc.domain.engine.GoalTimeline;
 import com.app.winterarc.domain.model.Goal;
 import com.app.winterarc.domain.model.ProgressEntry;
 import com.app.winterarc.ui.common.GoalVisuals;
+import com.app.winterarc.ui.common.Haptics;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-/** Read-only details for one tapped grid square. Works for the detail and stats screens. */
+/**
+ * Details for one tapped grid square, on the detail and stats screens. A missed (or partial / rest)
+ * past day can be marked as done, and a completed day cleared, so a forgotten check-in can be
+ * fixed later. The use case refuses future days and days before the goal started.
+ */
 public class DayDetailSheet extends BottomSheetDialogFragment {
     private static final String ARG_DATE = "date";
 
@@ -36,6 +41,12 @@ public class DayDetailSheet extends BottomSheetDialogFragment {
         @Nullable GoalTimeline hostTimeline();
 
         LocalDate hostToday();
+
+        /** Mark {@code date} as done (target met). */
+        void hostMarkDone(LocalDate date);
+
+        /** Remove the check-in for {@code date}. */
+        void hostClearDay(LocalDate date);
     }
 
     public static DayDetailSheet newInstance(LocalDate date) {
@@ -74,6 +85,7 @@ public class DayDetailSheet extends BottomSheetDialogFragment {
         b.kind.setText(GoalVisuals.dayKind(kind));
 
         ProgressEntry entry = timeline.entriesByDate.get(date);
+        bindActions(b, host, goal, timeline, date, kind);
         if (entry == null) {
             addRow(b, getString(R.string.day_detail_nothing), "");
             b.note.setVisibility(View.GONE);
@@ -97,6 +109,45 @@ public class DayDetailSheet extends BottomSheetDialogFragment {
         } else {
             b.note.setVisibility(View.GONE);
         }
+    }
+
+    private void bindActions(SheetDayDetailBinding b, Host host, Goal goal, GoalTimeline timeline, LocalDate date,
+                             DayKind kind) {
+        boolean open = goal.status().isOpen();
+        boolean canMark = open && (kind == DayKind.MISSED || kind == DayKind.PARTIAL || kind == DayKind.SKIPPED
+                || kind == DayKind.TODAY_PENDING);
+        boolean completed = kind.isCompletion();
+        // In a progression goal, a later completion built on this day's target; clearing this one
+        // would rewind the plan, so it is only allowed for the most recent advancing day.
+        boolean locked = completed && goal.isProgression() && laterAdvanced(timeline, date);
+        boolean canClear = open && completed && !locked;
+
+        if (kind == DayKind.MISSED && canMark) {
+            b.hint.setVisibility(View.VISIBLE);
+            b.hint.setText(R.string.day_detail_missed_hint);
+        } else if (open && locked) {
+            b.hint.setVisibility(View.VISIBLE);
+            b.hint.setText(R.string.day_detail_clear_locked);
+        }
+        b.markDone.setVisibility(canMark ? View.VISIBLE : View.GONE);
+        b.clearDay.setVisibility(canClear ? View.VISIBLE : View.GONE);
+        b.markDone.setOnClickListener(v -> {
+            Haptics.confirm(v);
+            host.hostMarkDone(date);
+            dismissAllowingStateLoss();
+        });
+        b.clearDay.setOnClickListener(v -> {
+            Haptics.soft(v);
+            host.hostClearDay(date);
+            dismissAllowingStateLoss();
+        });
+    }
+
+    private static boolean laterAdvanced(GoalTimeline timeline, LocalDate date) {
+        for (ProgressEntry e : timeline.entriesByDate.values()) {
+            if (e.date().isAfter(date) && e.advancedProgression()) return true;
+        }
+        return false;
     }
 
     private void addRow(SheetDayDetailBinding b, String key, String value) {

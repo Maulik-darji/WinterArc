@@ -221,6 +221,11 @@
 
                                 <com.google.android.material.button.MaterialButton
                                     android:id="@+id/btn_log"
+                                    android:maxLines="1"
+                                    android:paddingStart="12dp"
+                                    android:paddingEnd="12dp"
+                                    app:iconPadding="6dp"
+                                    app:iconSize="18dp"
                                     style="@style/Widget.WinterArc.Button.Tonal"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -231,6 +236,11 @@
 
                                 <com.google.android.material.button.MaterialButton
                                     android:id="@+id/btn_skip"
+                                    android:maxLines="1"
+                                    android:paddingStart="12dp"
+                                    android:paddingEnd="12dp"
+                                    app:iconPadding="6dp"
+                                    app:iconSize="18dp"
                                     style="@style/Widget.WinterArc.Button.Outlined"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
@@ -246,6 +256,7 @@
 
                                 <com.google.android.material.button.MaterialButton
                                     android:id="@+id/btn_note"
+                                    android:layout_marginStart="-12dp"
                                     style="@style/Widget.WinterArc.Button.Text"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"

@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.app.winterarc.core.AppExecutors;
-import com.app.winterarc.demo.DemoTools;
 import com.app.winterarc.domain.auth.AuthRepository;
 import com.app.winterarc.domain.auth.AuthUser;
 import com.app.winterarc.domain.repository.PreferencesRepository;
@@ -21,31 +20,22 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class SettingsViewModel extends ViewModel {
-    public enum Message { DEMO_LOADED, DATA_CLEARED }
-
     private final PreferencesRepository preferences;
     private final ReminderScheduler reminders;
-    private final DemoTools demoTools;
     private final AppExecutors executors;
     private final AuthRepository auth;
-    private final MutableLiveData<Event<Message>> messages = new MutableLiveData<>();
 
     @Inject
-    public SettingsViewModel(PreferencesRepository preferences, ReminderScheduler reminders, DemoTools demoTools,
+    public SettingsViewModel(PreferencesRepository preferences, ReminderScheduler reminders,
                              AppExecutors executors, AuthRepository auth) {
         this.auth = auth;
         this.preferences = preferences;
         this.reminders = reminders;
-        this.demoTools = demoTools;
         this.executors = executors;
     }
 
     public LiveData<UserPreferences> preferences() {
         return preferences.observe();
-    }
-
-    public LiveData<Event<Message>> messages() {
-        return messages;
     }
 
     public LiveData<AuthUser> account() {
@@ -56,9 +46,6 @@ public class SettingsViewModel extends ViewModel {
         auth.signOut();
     }
 
-    public boolean demoAvailable() {
-        return demoTools.isAvailable();
-    }
 
     public void setTheme(ThemeMode mode) {
         if (preferences.get().themeMode() == mode) return;
@@ -80,19 +67,5 @@ public class SettingsViewModel extends ViewModel {
         preferences.setOnboardingCompleted(false);
     }
 
-    public void loadDemo() {
-        if (!demoTools.isAvailable()) return;
-        executors.io().execute(() -> {
-            demoTools.loadDemoScenario();
-            executors.main().execute(() -> messages.setValue(new Event<>(Message.DEMO_LOADED)));
-        });
-    }
 
-    public void clearData() {
-        if (!demoTools.isAvailable()) return;
-        executors.io().execute(() -> {
-            demoTools.clearAllData();
-            executors.main().execute(() -> messages.setValue(new Event<>(Message.DATA_CLEARED)));
-        });
-    }
 }

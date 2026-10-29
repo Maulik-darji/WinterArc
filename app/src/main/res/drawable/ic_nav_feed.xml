@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Filled when selected, outlined otherwise. Inset to 24dp inside the 32dp icon slot shared
+     with the center create button. -->
+<inset xmlns:android="http://schemas.android.com/apk/res/android" android:inset="4dp">
+    <selector>
+        <item android:drawable="@drawable/ic_nav_feed_filled" android:state_checked="true" />
+        <item android:drawable="@drawable/ic_nav_feed_outline" />
+    </selector>
+</inset>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.button.MaterialButton xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/google"
+    style="@style/Widget.WinterArc.Button.Outlined"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/button_height"
+    android:text="@string/auth_continue_google"
+    android:textColor="?attr/colorOnSurface"
+    app:icon="@drawable/ic_google"
+    app:iconGravity="textStart"
+    app:iconPadding="@dimen/space_m"
+    app:iconSize="20dp"
+    app:iconTint="@null" />

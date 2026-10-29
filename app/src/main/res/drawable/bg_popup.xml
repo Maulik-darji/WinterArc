@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Menus: the highest surface step, with a hairline edge so they lift off dark backgrounds. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="@dimen/radius_m" />
+    <solid android:color="?attr/colorSurfaceContainerHighest" />
+    <stroke android:width="@dimen/stroke_hairline" android:color="?attr/colorOutlineVariant" />
+    <padding android:top="@dimen/space_xs" android:bottom="@dimen/space_xs" />
+</shape>

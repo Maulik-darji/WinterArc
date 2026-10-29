@@ -1,6 +1,7 @@
 package com.app.winterarc.ui;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 
@@ -32,5 +33,21 @@ public final class Waits {
             }
         }
         throw new AssertionError("View never displayed: " + matcher, last);
+    }
+
+    /** Waits for a view to leave the hierarchy (lists keep removed rows briefly while animating). */
+    public static void waitForGone(Matcher<View> matcher) {
+        long deadline = SystemClock.uptimeMillis() + 8_000;
+        Throwable last = null;
+        while (SystemClock.uptimeMillis() < deadline) {
+            try {
+                onView(matcher).check(doesNotExist());
+                return;
+            } catch (Throwable t) {
+                last = t;
+                SystemClock.sleep(150);
+            }
+        }
+        throw new AssertionError("View still present: " + matcher, last);
     }
 }

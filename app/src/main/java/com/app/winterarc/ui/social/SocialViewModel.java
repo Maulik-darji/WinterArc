@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.app.winterarc.core.AppExecutors;
 import com.app.winterarc.domain.auth.AuthRepository;
 import com.app.winterarc.domain.auth.AuthUser;
+import com.app.winterarc.domain.social.SocialHandles;
 import com.app.winterarc.domain.repository.SocialRepository;
 import com.app.winterarc.domain.social.Community;
 import com.app.winterarc.domain.social.CommunityMember;
@@ -47,15 +48,23 @@ public class SocialViewModel extends ViewModel {
     public SocialViewModel(SocialRepository repository, AuthRepository auth, AppExecutors executors) {
         this.repository = repository;
         this.executors = executors;
-        AuthUser current = auth.getCurrentUser();
-        currentUserId = current == null ? "local-user" : current.uid();
+        currentUserId = ensureCurrentProfile(auth, repository, executors);
         state = new Combiner<>(executors, this::compute);
         state.watch(repository.observeUsers(), value -> users = value);
         state.watch(repository.observeCommunities(), value -> communities = value);
         state.watch(repository.observeMembers(), value -> members = value);
         state.watch(repository.observePosts(), value -> posts = value);
         state.watch(repository.observeFollows(), value -> follows = value);
-        executors.io().execute(() -> repository.ensureSeeded(currentUserId));
+    }
+
+    /** The signed-in user's social id; creates their profile (name, @handle) on first use. */
+    public static String ensureCurrentProfile(AuthRepository auth, SocialRepository repository, AppExecutors executors) {
+        AuthUser current = auth.getCurrentUser();
+        String id = current == null ? "local-user" : current.uid();
+        String name = current == null ? "WinterArc member" : current.bestName();
+        String handle = SocialHandles.fromAccount(current == null ? null : current.email(), name);
+        executors.network().execute(() -> repository.ensureProfile(id, name, handle));
+        return id;
     }
 
     public LiveData<State> state() { return state; }
@@ -84,8 +93,20 @@ public class SocialViewModel extends ViewModel {
     }
     public void updateProfile(String name, String bio) { run("profile", () -> repository.updateProfile(currentUserId, name, bio)); }
 
+    /** Crops and uploads a picked photo ("avatar") or banner ("banner"); shared with the website. */
+    public void setProfileImage(android.content.ContentResolver resolver, android.net.Uri uri, String kind) {
+        run("profile_image", () -> {
+            byte[] jpeg = com.app.winterarc.ui.profile.ProfileImages.prepare(resolver, uri, kind);
+            return jpeg == null ? SocialResult.INVALID_INPUT : repository.setProfileImage(currentUserId, kind, jpeg);
+        });
+    }
+
+    public void removeProfileImage(String kind) {
+        run("profile_image", () -> repository.setProfileImage(currentUserId, kind, null));
+    }
+
     private void run(String action, Operation operation) {
-        executors.io().execute(() -> {
+        executors.network().execute(() -> {
             SocialResult result;
             try { result = operation.run(); } catch (RuntimeException error) { result = SocialResult.INVALID_INPUT; }
             SocialResult finalResult = result;

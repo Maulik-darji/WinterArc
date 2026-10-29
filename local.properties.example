@@ -1,0 +1,7 @@
+# Copy these values into local.properties (which remains untracked).
+# Get both from the Supabase project's Connect dialog.
+SUPABASE_URL=https://your-project-ref.supabase.co
+SUPABASE_PUBLISHABLE_KEY=sb_publishable_replace_me
+# OAuth *web* client id from Google Cloud (public). Enables "Continue with Google"; it is also one of
+# the Client IDs in Supabase > Authentication > Providers > Google.
+GOOGLE_WEB_CLIENT_ID=1234567890-abcdefg.apps.googleusercontent.com

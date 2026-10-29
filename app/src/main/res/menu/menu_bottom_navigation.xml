@@ -5,13 +5,13 @@
         android:icon="@drawable/ic_nav_home"
         android:title="@string/nav_home" />
     <item
-        android:id="@+id/navigation_community"
-        android:icon="@drawable/ic_nav_community"
-        android:title="@string/nav_community" />
+        android:id="@+id/navigation_feed"
+        android:icon="@drawable/ic_nav_feed"
+        android:title="@string/nav_feed" />
     <item
         android:id="@+id/navigation_new_goal"
         android:checkable="false"
-        android:icon="@drawable/ic_nav_placeholder"
+        android:icon="@drawable/ic_nav_create"
         android:title="@string/nav_new_goal" />
     <item
         android:id="@+id/navigation_chats"

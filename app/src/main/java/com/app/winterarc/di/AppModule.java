@@ -46,10 +46,13 @@ public final class AppModule {
     @Provides
     @Singleton
     static SocialDatabase provideSocialDatabase(@ApplicationContext Context context) {
-        return Room.databaseBuilder(context, SocialDatabase.class, SocialDatabase.NAME).build();
+        return Room.databaseBuilder(context, SocialDatabase.class, SocialDatabase.NAME)
+                .addMigrations(SocialDatabase.MIGRATION_1_2, SocialDatabase.MIGRATION_2_3)
+                .build();
     }
 
     @Provides static SocialDao socialDao(SocialDatabase db) { return db.socialDao(); }
+    @Provides static com.app.winterarc.data.social.db.FeedDao feedDao(SocialDatabase db) { return db.feedDao(); }
 
     @Provides
     @Singleton

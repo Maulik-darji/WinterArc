@@ -80,8 +80,10 @@ public class RoomRepositoriesTest {
         CheckInUseCase checkIn = new CheckInUseCase(goals, progress, milestones, new RoomTransactionRunner(db), time,
                 Analytics.NO_OP);
         checkIn.complete(id, START);
+        time.setToday(START.plusDays(1)); // one check-in per real day
         checkIn.complete(id, START.plusDays(1));
         assertEquals(TestGoals.km(3), goals.getGoal(id).currentTarget());
+        time.setToday(START.plusDays(2));
         CheckInUseCase.Result r = checkIn.complete(id, START.plusDays(2));
         assertTrue(r.milestoneReached());
         assertEquals(3, progress.getEntries(id).size());

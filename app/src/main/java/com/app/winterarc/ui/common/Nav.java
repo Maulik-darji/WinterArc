@@ -16,6 +16,7 @@ public final class Nav {
     public static final String ARG_DOC = "doc";
     public static final String ARG_COMMUNITY_ID = "communityId";
     public static final String ARG_USER_ID = "userId";
+    public static final String ARG_POST_ID = "postId";
     public static final String DOC_PRIVACY = "privacy";
     public static final String DOC_TERMS = "terms";
 
@@ -62,6 +63,12 @@ public final class Nav {
     public static Bundle user(String userId) {
         Bundle b = new Bundle();
         b.putString(ARG_USER_ID, userId);
+        return b;
+    }
+
+    public static Bundle post(String postId) {
+        Bundle b = new Bundle();
+        b.putString(ARG_POST_ID, postId);
         return b;
     }
 

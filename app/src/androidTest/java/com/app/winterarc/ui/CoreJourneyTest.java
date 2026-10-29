@@ -37,7 +37,7 @@ public class CoreJourneyTest {
             onView(withId(R.id.next)).perform(click());
             onView(shown(withText(R.string.onboarding_get_started))).perform(click());
 
-            // Sign up with mobile number + OTP
+            // Create an account with email + password
             AuthSteps.signUp();
 
             // Empty dashboard
@@ -85,7 +85,7 @@ public class CoreJourneyTest {
             AuthSteps.signUp();
             waitForDisplayed(withText(R.string.home_empty_title));
             onView(withId(R.id.action_settings)).perform(click());
-            waitForDisplayed(withText(containsString("Signed in as +919876543210")));
+            waitForDisplayed(withText(containsString("Signed in as " + AuthSteps.TEST_EMAIL)));
             waitForDisplayed(withText(R.string.settings_privacy));
             onView(shown(withText(R.string.settings_privacy))).perform(click());
             waitForDisplayed(withText(containsString("work entirely on your device")));

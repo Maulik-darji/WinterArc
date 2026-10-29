@@ -124,3 +124,31 @@ The portable build runs Vinext directly without a host `timeout` command. The ma
 
 - [vinext Documentation](https://github.com/cloudflare/vinext)
 - [Drizzle D1 Guide](https://orm.drizzle.team/docs/get-started/d1-new)
+
+
+## WinterArc on the web (`/login`, `/home`, `/post/:id`, `/profile/:id`)
+
+The landing page at `/` is unchanged apart from a **Log in** link. The rest of the site is the web version of the app's Feed, laid out like X/Twitter: a left navigation rail, a centre timeline and a right rail ("Get the app", "Who to follow"). On phones the rail becomes a bottom bar, and Android visitors see a "WinterArc works best in the app" banner that links to the APK.
+
+| Route | What it does |
+|---|---|
+| `/login`, `/signup` | Continue with Google, or email + password with a retype field and show/hide eyes; Forgot password |
+| `/reset-password` | Where the reset email lands: choose a new password |
+| `/home` | For you / Following timeline, 280-character composer; readable without an account |
+| `/post/:id` | Full post, threaded replies with connector lines (depth capped at 3, "Replying to @handle"), reply composer; authors can edit/delete their own posts and comments |
+| `/profile/:id` | Profile, follow/unfollow, the person's posts |
+
+Code lives in `lib/web` (rules, thread builder, backends, tested with `npm test`), `components/web` and `app/(web)`. Styles are scoped to `.wa-web` in `app/(web)/web.css`.
+
+### Backends
+
+- **Cloud** (production): Supabase Auth (email + password, Google) and Supabase data, with one set of accounts shared with the Android app. Row-level security is in `../supabase/migrations`. Apply them in order; the web tables `profiles`, `follows` and the public-read policies are in `202610270001_...`.
+- **Local test backend** (development only, or `NEXT_PUBLIC_ALLOW_LOCAL=true`): everything is stored in the browser's localStorage and "Continue with Google" signs in a fake test account. A banner on the login page says so. A production build with no Supabase settings shows "isn't connected yet" and never fakes a login.
+
+### Set up
+
+1. Configure Supabase Auth as described in the root `README.md` (*Accounts → Enabling real accounts*): Email provider, Google provider, Site URL and Redirect URLs (`http://localhost:5173/**` and your production domain). Reset-password emails land on `/reset-password`.
+2. Run the migrations in `../supabase/migrations` in order.
+3. `cp .env.example .env.local`, fill in `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, then `npm run dev` (or `npm run build`).
+
+`npm test` runs the logic tests (threads, limits, password rules, handles, times, and the local backend including follow/edit/delete rules).

@@ -9,6 +9,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { LOGO_BG, LOGO_FG, LOGO_PATH } from "@/lib/web/logo";
 
 const week = [
   1, 2, 3, 4, 0, 2, 3, 4, 4, 1, 0, 3, 4, 4, 2, 1, 3, 4, 4, 4, 0, 2, 3,
@@ -17,12 +18,10 @@ const week = [
 
 function Mark({ small = false }: { small?: boolean }) {
   return (
-    <span className={small ? "brand-mark brand-mark--small" : "brand-mark"} aria-hidden="true">
-      <i />
-      <i />
-      <i />
-      <i />
-    </span>
+    <svg className={small ? "brand-mark brand-mark--logo brand-mark--small" : "brand-mark brand-mark--logo"} viewBox="0 0 100 100" aria-hidden="true">
+      <rect width="100" height="100" fill={LOGO_BG} />
+      <path d={LOGO_PATH} fill={LOGO_FG} />
+    </svg>
   );
 }
 
@@ -105,6 +104,8 @@ export default function Home() {
         <nav aria-label="Primary navigation">
           <a href="#how-it-works">How it works</a>
           <a href="#features">Features</a>
+          <a href="/home">Explore</a>
+          <a href="/login">Log in</a>
           <Button className="nav-download" asChild>
             <a href="/downloads/WinterArc-1.0.0-preview.apk" download>
               <Download /> Download

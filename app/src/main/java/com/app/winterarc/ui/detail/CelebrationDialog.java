@@ -1,6 +1,7 @@
 package com.app.winterarc.ui.detail;
 
 import android.app.Dialog;
+import com.app.winterarc.ui.common.Haptics;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
@@ -122,7 +123,7 @@ public class CelebrationDialog extends DialogFragment {
         showPage(state != null ? state.getInt(KEY_PAGE) : 0);
         if (state == null) {
             binding.confetti.post(() -> binding.confetti.play());
-            Ui.confirmHaptic(binding.getRoot(), viewModel.hapticsEnabled());
+            Haptics.celebrate(requireContext());
             binding.title.announceForAccessibility(binding.title.getText());
         }
     }

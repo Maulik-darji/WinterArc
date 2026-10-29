@@ -1,6 +1,7 @@
 package com.app.winterarc.ui.onboarding;
 
 import android.os.Bundle;
+import com.app.winterarc.ui.common.Haptics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,8 +61,13 @@ public class OnboardingFragment extends Fragment {
         binding.pager.setAdapter(new PagesAdapter());
         new TabLayoutMediator(binding.dots, binding.pager, (tab, position) -> { }).attach();
         binding.pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            private int lastPage = -1;
+
             @Override
             public void onPageSelected(int position) {
+                // Tick on page changes, not on the initial selection when the pager appears.
+                if (lastPage != -1 && lastPage != position) Haptics.tick(binding.pager);
+                lastPage = position;
                 boolean last = position == TITLES.length - 1;
                 binding.next.setText(last ? R.string.onboarding_get_started : R.string.action_next);
                 binding.skip.setVisibility(last ? View.INVISIBLE : View.VISIBLE);
@@ -80,6 +86,7 @@ public class OnboardingFragment extends Fragment {
     }
 
     private void finish() {
+        Haptics.confirm(binding.getRoot());
         viewModel.complete();
         NavHostFragment.findNavController(this).navigate(auth.getCurrentUser() == null
                 ? R.id.action_onboarding_to_signup : R.id.action_onboarding_to_home);
@@ -140,7 +147,7 @@ public class OnboardingFragment extends Fragment {
                     MaterialCardView card = new MaterialCardView(c);
                     card.setCardBackgroundColor(GoalVisuals.container(c, color));
                     card.setStrokeWidth(0);
-                    card.setRadius(Ui.dp(c, 24));
+                    card.setRadius(c.getResources().getDimension(R.dimen.radius_xl));
                     ImageView image = new ImageView(c);
                     image.setImageResource(GoalVisuals.icon(icon));
                     image.setImageTintList(android.content.res.ColorStateList.valueOf(GoalVisuals.color(c, color)));

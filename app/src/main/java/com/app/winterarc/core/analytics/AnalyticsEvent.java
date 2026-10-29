@@ -22,17 +22,16 @@ public record AnalyticsEvent(String name, Map<String, String> properties) {
     public static final String PROGRESSION_CONTINUED = "progression_continued";
     public static final String GOAL_ARCHIVED = "goal_archived";
     public static final String SIGNUP_STARTED = "signup_started";
-    public static final String OTP_REQUESTED = "otp_requested";
-    public static final String OTP_FAILED = "otp_failed";
+        public static final String AUTH_FAILED = "auth_failed";
     public static final String SIGNUP_COMPLETED = "signup_completed";
 
     public static AnalyticsEvent of(String name) {
         return new AnalyticsEvent(name, Collections.emptyMap());
     }
 
-    /** Failure reason only (an enum), never the phone number. */
-    public static AnalyticsEvent otpFailed(String reason) {
-        return new AnalyticsEvent(OTP_FAILED, Map.of("reason", reason));
+    /** Failure reason only (an enum), never the email address. */
+    public static AnalyticsEvent authFailed(String reason) {
+        return new AnalyticsEvent(AUTH_FAILED, Map.of("reason", reason));
     }
 
     public static AnalyticsEvent modeSelected(TrackingMode mode) {
