@@ -238,7 +238,8 @@ footer .site-logo { color: var(--ink); }
 @media (max-width: 760px) {
   .site-nav, .hero, .modes-section, .feature-list, footer { width: min(100% - 36px, 1380px); }
   .site-nav { height: 70px; }
-  .site-nav nav > a:not(.nav-download) { display: none; }
+  .site-nav nav > a:not(.nav-download):not(.nav-explore) { display: none; }
+  .site-nav nav { gap: 16px; }
   .nav-download { height: 40px; padding-inline: 14px; }
   .hero { grid-template-columns: 1fr; padding: 62px 0 70px; }
   .hero h1 { font-size: clamp(3.5rem, 17vw, 5.3rem); }
