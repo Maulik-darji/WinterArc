@@ -152,3 +152,13 @@ Code lives in `lib/web` (rules, thread builder, backends, tested with `npm test`
 3. `cp .env.example .env.local`, fill in `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, then `npm run dev` (or `npm run build`).
 
 `npm test` runs the logic tests (threads, limits, password rules, handles, times, and the local backend including follow/edit/delete rules).
+
+
+## Deploying to Vercel
+
+`npm run build` uses vinext (output in `dist/`, for Cloudflare Workers), which Vercel can't serve.
+`vercel.json` makes Vercel run a standard `next build` instead (output in `.next/`). In the Vercel
+project set **Root Directory** to `website` and add the environment variables
+`NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` (same values as `.env.local`).
+Then add the Vercel domain to Supabase *Authentication → URL Configuration* (Site URL and
+Redirect URLs `https://<your-domain>/**`) and to the Google Web client's *Authorized JavaScript origins*.
