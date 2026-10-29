@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +22,6 @@ import com.app.winterarc.ui.common.Nav;
 import com.app.winterarc.ui.common.Ui;
 import com.app.winterarc.ui.home.HomeViewModel;
 import com.app.winterarc.ui.social.SocialViewModel;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import javax.inject.Inject;
 
@@ -49,11 +46,11 @@ public class ProfileFragment extends Fragment {
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         socialViewModel = new ViewModelProvider(requireActivity()).get(SocialViewModel.class);
         AuthUser user = auth.getCurrentUser();
-        if (user != null) binding.phone.setText(maskPhone(user.phoneE164()));
+        if (user != null) binding.account.setText(user.email() != null ? user.email() : "");
         binding.editProfile.setOnClickListener(v -> editProfile());
         binding.archive.setOnClickListener(v -> Nav.go(this, R.id.archiveFragment));
         binding.settings.setOnClickListener(v -> Nav.go(this, R.id.settingsFragment));
-        binding.createCommunity.setOnClickListener(v -> Nav.go(this, R.id.communityFragment));
+        binding.createCommunity.setOnClickListener(v -> Nav.go(this, R.id.feedFragment, com.app.winterarc.ui.feed.FeedFragment.args(com.app.winterarc.ui.feed.FeedFragment.TAB_COMMUNITIES)));
         homeViewModel.state().observe(getViewLifecycleOwner(), home -> {
             binding.activeGoals.setText(String.valueOf(home.cards().size()));
             binding.todayDone.setText(String.valueOf(Math.max(0, home.scheduledToday() - home.remainingToday())));
@@ -66,7 +63,11 @@ public class ProfileFragment extends Fragment {
         for (SocialUser user : state.users()) if (user.id().equals(state.currentUserId())) currentUser = user;
         if (currentUser != null) {
             binding.name.setText(currentUser.displayName());
-            binding.avatar.setText(currentUser.initial());
+            com.app.winterarc.ui.common.Avatars.bind(binding.avatar, currentUser.initial(), currentUser.avatarUrl());
+            com.app.winterarc.ui.common.Avatars.banner(binding.banner, currentUser.bannerUrl());
+            boolean hasBio = !currentUser.bio().isBlank();
+            binding.bio.setVisibility(hasBio ? View.VISIBLE : View.GONE);
+            binding.bio.setText(currentUser.bio());
         }
         int joined = 0;
         for (CommunityMember member : state.members()) if (member.userId().equals(state.currentUserId())) joined++;
@@ -93,33 +94,8 @@ public class ProfileFragment extends Fragment {
     }
 
     private void editProfile() {
-        if (currentUser == null) return;
-        LinearLayout fields = new LinearLayout(requireContext());
-        fields.setOrientation(LinearLayout.VERTICAL);
-        int padding = Ui.dp(requireContext(), 20);
-        fields.setPadding(padding, 0, padding, 0);
-        EditText name = new EditText(requireContext());
-        name.setHint(R.string.profile_name_hint);
-        name.setText(currentUser.displayName());
-        name.setSingleLine(true);
-        EditText bio = new EditText(requireContext());
-        bio.setHint(R.string.community_description_hint);
-        bio.setText(currentUser.bio());
-        bio.setMaxLines(3);
-        fields.addView(name);
-        fields.addView(bio);
-        new MaterialAlertDialogBuilder(requireContext())
-                .setTitle(R.string.profile_edit_title)
-                .setView(fields)
-                .setNegativeButton(R.string.action_cancel, null)
-                .setPositiveButton(R.string.action_save, (dialog, which) ->
-                        socialViewModel.updateProfile(name.getText().toString(), bio.getText().toString()))
-                .show();
-    }
-
-    private String maskPhone(String phone) {
-        if (phone == null || phone.length() < 4) return getString(R.string.profile_phone_hidden);
-        return "•••• " + phone.substring(phone.length() - 4);
+        if (currentUser == null || getChildFragmentManager().findFragmentByTag(EditProfileSheet.TAG) != null) return;
+        new EditProfileSheet().show(getChildFragmentManager(), EditProfileSheet.TAG);
     }
 
     @Override public void onDestroyView() { super.onDestroyView(); binding = null; }

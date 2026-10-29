@@ -2,11 +2,14 @@ package com.app.winterarc.di;
 
 import android.content.Context;
 
+import com.app.winterarc.BuildConfig;
+import com.app.winterarc.core.AppExecutors;
 import com.app.winterarc.core.analytics.CrashReporter;
-import com.app.winterarc.data.auth.FirebasePhoneAuthRepository;
+import com.app.winterarc.data.auth.KeystoreSessionStorage;
+import com.app.winterarc.data.auth.SupabaseAuthApi;
+import com.app.winterarc.data.auth.SupabaseAuthRepository;
+import com.app.winterarc.data.remote.SupabaseConfig;
 import com.app.winterarc.domain.auth.AuthRepository;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
@@ -25,15 +28,18 @@ public final class AuthModule {
     private AuthModule() {}
 
     /**
-     * Firebase when the app is configured (google-services.json present); otherwise the
-     * build-type fallback: a fake OTP provider in debug, an explanatory "unavailable" in release.
+     * Supabase Auth when SUPABASE_URL and SUPABASE_PUBLISHABLE_KEY are set; otherwise the
+     * build-type fallback: a local test provider in debug, an explanatory "unavailable" in release.
+     * Instrumented-test builds always use the local provider so tests never create real accounts.
      */
     @Provides
     @Singleton
-    static AuthRepository auth(@ApplicationContext Context context, CrashReporter crashReporter,
+    static AuthRepository auth(@ApplicationContext Context context, SupabaseConfig config, SupabaseAuthApi api,
+                               AppExecutors executors, CrashReporter crashReporter,
                                @Named(FALLBACK) javax.inject.Provider<AuthRepository> fallback) {
-        if (!FirebaseApp.getApps(context).isEmpty()) {
-            return new FirebasePhoneAuthRepository(FirebaseAuth.getInstance(), crashReporter);
+        if (config.configured() && BuildConfig.USE_SUPABASE_AUTH) {
+            return new SupabaseAuthRepository(api, new KeystoreSessionStorage(context), executors, crashReporter,
+                    BuildConfig.GOOGLE_WEB_CLIENT_ID, () -> System.currentTimeMillis() / 1000);
         }
         return fallback.get();
     }

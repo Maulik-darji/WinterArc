@@ -7,6 +7,7 @@ import com.app.winterarc.data.repository.RoomMilestoneRepository;
 import com.app.winterarc.data.repository.RoomProgressRepository;
 import com.app.winterarc.data.repository.RoomTransactionRunner;
 import com.app.winterarc.data.social.RoomSocialRepository;
+import com.app.winterarc.domain.feed.FeedRepository;
 import com.app.winterarc.domain.repository.ContentRepository;
 import com.app.winterarc.domain.repository.GoalRepository;
 import com.app.winterarc.domain.repository.MilestoneRepository;
@@ -34,4 +35,5 @@ public abstract class BindingsModule {
     @Binds abstract PreferencesRepository preferences(SharedPreferencesRepository impl);
     @Binds abstract ReminderScheduler reminders(WorkManagerReminderScheduler impl);
     @Binds abstract SocialRepository social(RoomSocialRepository impl);
+    @Binds abstract FeedRepository feed(com.app.winterarc.data.cloud.SyncingFeedRepository impl);
 }

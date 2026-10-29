@@ -223,4 +223,32 @@ public class CheckInUseCaseTest {
     private Goal goal(long id) {
         return goals.getGoal(id);
     }
+
+    // ---- Filling in a missed day from the grid
+
+    @Test
+    public void aMissedPastDayCanBeMarkedDoneLater() {
+        long id = progression(1, 10, 1);
+        LocalDate missed = START.plusDays(1);
+        time.setToday(START.plusDays(5));
+        CheckInUseCase.Result r = checkIn.complete(id, missed);
+        assertEquals(CheckInUseCase.Status.SAVED, r.status());
+        assertEquals(missed, r.entry().date());
+        assertEquals(EntryStatus.COMPLETED, r.entry().status());
+        assertEquals("completing a past day still advances the plan once", km(2), target(id));
+        // Clearing it again reverts that advance.
+        checkIn.undo(id, missed);
+        assertNull(progress.getEntry(id, missed));
+        assertEquals(km(1), target(id));
+    }
+
+    @Test
+    public void futureDaysAndDaysBeforeTheStartAreRefused() {
+        long id = progression(1, 10, 1);
+        assertEquals(CheckInUseCase.Status.INVALID_DATE, checkIn.complete(id, START.plusDays(1)).status());
+        assertEquals(CheckInUseCase.Status.INVALID_DATE, checkIn.complete(id, START.minusDays(1)).status());
+        assertEquals(CheckInUseCase.Status.INVALID_DATE, checkIn.logValue(id, START.plusDays(3), km(1), null).status());
+        assertNull(progress.getEntry(id, START.plusDays(1)));
+        assertEquals(km(1), target(id));
+    }
 }

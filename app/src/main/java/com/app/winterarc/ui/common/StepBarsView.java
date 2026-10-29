@@ -79,7 +79,7 @@ public class StepBarsView extends View {
         float gap = Ui.dp(getContext(), 4);
         float w = (getWidth() - getPaddingLeft() - getPaddingRight() - gap * (n - 1)) / n;
         float h = getHeight() - getPaddingTop() - getPaddingBottom();
-        float radius = Math.min(w / 2f, Ui.dp(getContext(), 4));
+        float radius = Math.min(w / 2f, Ui.dp(getContext(), 3));
         for (int i = 0; i < n; i++) {
             float left = getPaddingLeft() + i * (w + gap);
             float top = getPaddingTop() + h * (1f - heights[i]);

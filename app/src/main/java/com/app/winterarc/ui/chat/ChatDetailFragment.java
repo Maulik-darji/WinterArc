@@ -1,6 +1,7 @@
 package com.app.winterarc.ui.chat;
 
 import android.graphics.drawable.GradientDrawable;
+import com.app.winterarc.ui.common.Haptics;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,23 +38,18 @@ public class ChatDetailFragment extends Fragment {
         Ui.applySystemBarPadding(binding.chatRoot, true, false);
         Ui.applySystemBarPadding(binding.composer, false, true);
         binding.toolbar.setTitle(personName);
-        binding.toolbar.setSubtitle(R.string.chat_online);
         binding.toolbar.setNavigationOnClickListener(v -> Nav.up(this));
 
         addBubble(getString(R.string.chat_start_note), false, true);
-        addBubble(greetingFor(personName), false, false);
-        binding.send.setOnClickListener(v -> send());
+        binding.send.setOnClickListener(v -> {
+            Haptics.tick(v);
+            send();
+        });
         binding.message.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId != EditorInfo.IME_ACTION_SEND) return false;
             send();
             return true;
         });
-    }
-
-    private String greetingFor(String name) {
-        if (name.startsWith("Maya")) return "Hey! Are you still aiming for your morning goal tomorrow?";
-        if (name.startsWith("Arjun")) return "Nice to connect. How did your focus session go today?";
-        return "I just added another book to my list. How is your current goal going?";
     }
 
     private void send() {

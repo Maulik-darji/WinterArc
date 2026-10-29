@@ -38,7 +38,8 @@ import javax.inject.Inject;
  */
 public class CheckInUseCase {
 
-    public enum Status { SAVED, GOAL_NOT_FOUND, GOAL_NOT_OPEN }
+    /** INVALID_DATE: a future day, or a day before the goal started. */
+    public enum Status { SAVED, GOAL_NOT_FOUND, GOAL_NOT_OPEN, INVALID_DATE }
 
     /**
      * @param entry      the day's entry after the operation, or null if it was removed
@@ -148,6 +149,8 @@ public class CheckInUseCase {
             Goal goal = goals.getGoal(goalId);
             if (goal == null) return Result.of(Status.GOAL_NOT_FOUND);
             if (!goal.status().isOpen()) return Result.of(Status.GOAL_NOT_OPEN);
+            // Past days can be filled in (a missed check-in); the future and pre-start days cannot.
+            if (date.isAfter(time.today()) || date.isBefore(goal.startDate())) return Result.of(Status.INVALID_DATE);
             ProgressEntry existing = progress.getEntry(goalId, date);
             Amount target = targetFor(goal, existing);
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Center "New goal" action: a 32dp primary rounded square with a plus. All nav icons share a
+     32dp slot (itemIconSize); tab glyphs are inset to 24dp so they line up with it. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="@dimen/radius_m" />
+            <solid android:color="?attr/colorPrimary" />
+            <size android:width="32dp" android:height="32dp" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_nav_create_plus" android:gravity="center"
+        android:width="20dp" android:height="20dp" />
+</layer-list>

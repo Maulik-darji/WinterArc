@@ -2,6 +2,11 @@ package com.app.winterarc.ui.stats;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
+import com.app.winterarc.R;
+import com.app.winterarc.domain.usecase.CheckInUseCase;
+import com.app.winterarc.ui.common.Event;
+import androidx.lifecycle.MutableLiveData;
+
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
 
@@ -52,12 +57,20 @@ public class StatsViewModel extends ViewModel {
     private volatile List<Milestone> milestones;
     private volatile DayOfWeek firstDay = DayOfWeek.MONDAY;
 
+    private final long goalId;
+    private final CheckInUseCase checkIn;
+    private final AppExecutors executors;
+    private final MutableLiveData<Event<Integer>> messages = new MutableLiveData<>();
+
     @Inject
     public StatsViewModel(SavedStateHandle saved, GoalRepository goals, ProgressRepository progress,
-                          MilestoneRepository milestoneRepository, TimeProvider time, AppExecutors executors) {
+                          MilestoneRepository milestoneRepository, CheckInUseCase checkIn, TimeProvider time,
+                          AppExecutors executors) {
         Long id = saved.get(Nav.ARG_GOAL_ID);
-        long goalId = id == null ? -1 : id;
+        this.goalId = id == null ? -1 : id;
         this.time = time;
+        this.checkIn = checkIn;
+        this.executors = executors;
         state = new Combiner<>(executors, this::compute);
         state.watch(goals.observeGoal(goalId), g -> goal = g);
         state.watch(progress.observeEntries(goalId), v -> entries = v);
@@ -67,6 +80,30 @@ public class StatsViewModel extends ViewModel {
 
     public LiveData<StatsState> state() {
         return state;
+    }
+
+    /** One-shot snackbar text (string resource) after a grid check-in. */
+    public LiveData<Event<Integer>> messages() {
+        return messages;
+    }
+
+    /** Fills in a missed day from the year grid. */
+    public void completeDay(LocalDate date) {
+        executors.io().execute(() -> {
+            CheckInUseCase.Result r = checkIn.complete(goalId, date);
+            post(r.status() == CheckInUseCase.Status.SAVED ? R.string.day_marked_done : R.string.day_action_failed);
+        });
+    }
+
+    public void clearDay(LocalDate date) {
+        executors.io().execute(() -> {
+            CheckInUseCase.Result r = checkIn.undo(goalId, date);
+            post(r.status() == CheckInUseCase.Status.SAVED ? R.string.day_cleared : R.string.day_action_failed);
+        });
+    }
+
+    private void post(int text) {
+        executors.main().execute(() -> messages.setValue(new Event<>(text)));
     }
 
     public void setFirstDayOfWeek(DayOfWeek day) {

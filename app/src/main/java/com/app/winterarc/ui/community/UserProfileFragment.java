@@ -1,6 +1,7 @@
 package com.app.winterarc.ui.community;
 
 import android.os.Bundle;
+import com.app.winterarc.ui.common.Haptics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,14 +40,18 @@ public class UserProfileFragment extends Fragment {
         binding.toolbar.setNavigationOnClickListener(v -> Nav.up(this));
         viewModel = new ViewModelProvider(requireActivity()).get(SocialViewModel.class);
         viewModel.state().observe(getViewLifecycleOwner(), this::render);
-        binding.follow.setOnClickListener(v -> viewModel.toggleFollow(userId));
+        binding.follow.setOnClickListener(v -> {
+            Haptics.tick(v);
+            viewModel.toggleFollow(userId);
+        });
     }
 
     private void render(SocialViewModel.State state) {
         SocialUser target = null;
         for (SocialUser user : state.users()) if (user.id().equals(userId)) target = user;
         if (target == null) { Nav.up(this); return; }
-        binding.avatar.setText(target.initial());
+        com.app.winterarc.ui.common.Avatars.bind(binding.avatar, target.initial(), target.avatarUrl());
+        com.app.winterarc.ui.common.Avatars.banner(binding.banner, target.bannerUrl());
         binding.name.setText(target.displayName());
         binding.handle.setText(target.handle());
         binding.bio.setText(target.bio());

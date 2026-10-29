@@ -1,6 +1,7 @@
 package com.app.winterarc.ui.detail;
 
 import android.content.ActivityNotFoundException;
+import com.app.winterarc.ui.common.Haptics;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
@@ -49,7 +50,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 /** "Did you complete today's 3 km target?" plus progression, history grid, stats and inspiration. */
 @AndroidEntryPoint
-public class GoalDetailFragment extends Fragment implements DayDetailSheet.Host {
+public class GoalDetailFragment extends Fragment implements GridZoomSheet.Host {
     private static final String TAG_LOG = "log";
     private static final String TAG_SKIP = "skip";
     private static final String TAG_DAY = "day";
@@ -94,7 +95,14 @@ public class GoalDetailFragment extends Fragment implements DayDetailSheet.Host 
         binding.btnUndo.setOnClickListener(v -> viewModel.undoToday());
         binding.btnAllStats.setOnClickListener(v -> Nav.go(this, R.id.statsFragment, Nav.goal(viewModel.goalId())));
         binding.milestoneBanner.setOnClickListener(v -> viewModel.openCelebration());
-        binding.grid.setOnDayClickListener(day -> showSheet(DayDetailSheet.newInstance(day.date()), TAG_DAY));
+        // The small grid is too dense to hit one day reliably: a tap opens it enlarged, centred on
+        // the tapped week, and the day is picked there.
+        ContributionGridView.OnDayClickListener zoom = day -> {
+            Haptics.tick(binding.grid);
+            showSheet(GridZoomSheet.newInstance(GridZoomSheet.focusFor(day, hostToday())), GridZoomSheet.TAG);
+        };
+        binding.grid.setOnTapAnywhereListener(zoom); // touch: anywhere on the grid
+        binding.grid.setOnDayClickListener(zoom);    // TalkBack / keyboard: a chosen day
 
         // Size the grid to the available width once laid out.
         binding.gridContainer.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> {
@@ -172,6 +180,7 @@ public class GoalDetailFragment extends Fragment implements DayDetailSheet.Host 
 
         binding.grid.setData(s.heatmap(), color, ContributionGridView.localeOf(c));
         binding.legend.setGoalColor(color);
+        if (getChildFragmentManager().findFragmentByTag(GridZoomSheet.TAG) instanceof GridZoomSheet zoom) zoom.refresh();
         renderStats(s);
         renderInspiration(s.content());
         binding.safetyFooter.setVisibility(goal.activityType().isEndurance() ? View.VISIBLE : View.GONE);
@@ -409,31 +418,36 @@ public class GoalDetailFragment extends Fragment implements DayDetailSheet.Host 
         boolean offerUndo = false;
         switch (m) {
             case COMPLETED:
-                Ui.confirmHaptic(binding.getRoot(), viewModel.hapticsEnabled());
+                Haptics.confirm(binding.getRoot());
                 text = getString(R.string.detail_completed_snack, current == null ? "" : current.goal().title());
                 if (current != null && current.goal().isProgression()) {
                     text = text + " " + getString(R.string.detail_next_up, target);
                 }
                 offerUndo = true;
                 break;
-            case PARTIAL: text = getString(R.string.detail_partial_snack); offerUndo = true; break;
-            case SKIPPED: text = getString(R.string.detail_skipped_snack); offerUndo = true; break;
-            case UNDONE: text = getString(R.string.detail_undone_snack); break;
+            case PARTIAL: Haptics.soft(binding.getRoot()); text = getString(R.string.detail_partial_snack); offerUndo = true; break;
+            case SKIPPED: Haptics.soft(binding.getRoot()); text = getString(R.string.detail_skipped_snack); offerUndo = true; break;
+            case UNDONE: Haptics.soft(binding.getRoot()); text = getString(R.string.detail_undone_snack); break;
+            case DAY_CLEARED: Haptics.soft(binding.getRoot()); text = getString(R.string.day_cleared); break;
             case NOTE_SAVED: text = getString(R.string.detail_note_saved); break;
             case PAUSED: text = getString(R.string.detail_paused_body); break;
             case RESUMED: text = getString(R.string.detail_resumed_snack); break;
             case RESTORED: text = getString(R.string.archive_restored); break;
-            case MAINTAINED: text = getString(R.string.celebration_maintained_snack, target); break;
+            case MAINTAINED: Haptics.confirm(binding.getRoot()); text = getString(R.string.celebration_maintained_snack, target); break;
             case CONTINUED:
+                Haptics.confirm(binding.getRoot());
                 text = getString(R.string.celebration_continued_snack,
                         current == null || viewModel.lastContinuedFinal() == null
                                 ? "" : amount(current.goal(), viewModel.lastContinuedFinal()));
                 break;
-            case GOAL_COMPLETED: text = getString(R.string.celebration_completed_snack); break;
-            default: text = getString(R.string.error_generic); break;
+            case GOAL_COMPLETED: Haptics.confirm(binding.getRoot()); text = getString(R.string.celebration_completed_snack); break;
+            default: Haptics.reject(binding.getRoot()); text = getString(R.string.error_generic); break;
         }
         Snackbar bar = Snackbar.make(binding.detailRoot, text, Snackbar.LENGTH_LONG);
-        if (offerUndo) bar.setAction(R.string.action_undo, v -> viewModel.undoToday());
+        if (offerUndo) bar.setAction(R.string.action_undo, v -> {
+            Haptics.soft(v);
+            viewModel.undoToday();
+        });
         bar.show();
     }
 
@@ -454,6 +468,27 @@ public class GoalDetailFragment extends Fragment implements DayDetailSheet.Host 
     @Override
     public LocalDate hostToday() {
         return current == null ? LocalDate.now() : current.today();
+    }
+
+    @Override
+    public void hostMarkDone(LocalDate date) {
+        viewModel.completeDay(date);
+    }
+
+    @Nullable
+    @Override
+    public com.app.winterarc.domain.engine.Heatmap hostHeatmap() {
+        return current == null ? null : current.heatmap();
+    }
+
+    @Override
+    public int hostGoalColor() {
+        return current == null ? 0 : GoalVisuals.color(requireContext(), current.goal().color());
+    }
+
+    @Override
+    public void hostClearDay(LocalDate date) {
+        viewModel.clearDay(date);
     }
 
     @Override

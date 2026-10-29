@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Tab switches: a quick cross-fade, no sideways motion. -->
+<alpha xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="@integer/motion_short"
+    android:fromAlpha="0"
+    android:interpolator="@android:interpolator/linear_out_slow_in"
+    android:toAlpha="1" />

@@ -1,6 +1,8 @@
 package com.app.winterarc.data.social;
 
 import androidx.lifecycle.LiveData;
+import com.app.winterarc.data.cloud.CloudSync;
+import com.google.gson.JsonObject;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 
@@ -41,10 +43,46 @@ public class RoomSocialRepository implements SocialRepository {
     private final SocialDao dao;
     private final MutableLiveData<String> currentUserId = new MutableLiveData<>("");
 
-    @Inject
+    /** Syncs profiles and follows with the website for cloud accounts; null keeps them local (tests). */
+    @androidx.annotation.Nullable private final CloudSync cloud;
+    /** Where images are kept for local (non-cloud) accounts. */
+    @androidx.annotation.Nullable private final java.io.File mediaDir;
+
     public RoomSocialRepository(SocialDatabase database, SocialDao dao) {
+        this(database, dao, null, (java.io.File) null);
+    }
+
+    public RoomSocialRepository(SocialDatabase database, SocialDao dao, @androidx.annotation.Nullable CloudSync cloud) {
+        this(database, dao, cloud, (java.io.File) null);
+    }
+
+    @Inject
+    public RoomSocialRepository(SocialDatabase database, SocialDao dao, @androidx.annotation.Nullable CloudSync cloud,
+                                @dagger.hilt.android.qualifiers.ApplicationContext android.content.Context context) {
+        this(database, dao, cloud, new java.io.File(context.getFilesDir(), "profile-media"));
+    }
+
+    private RoomSocialRepository(SocialDatabase database, SocialDao dao, @androidx.annotation.Nullable CloudSync cloud,
+                                 @androidx.annotation.Nullable java.io.File mediaDir) {
         this.database = database;
         this.dao = dao;
+        this.cloud = cloud;
+        this.mediaDir = mediaDir;
+        if (mediaDir != null && !mediaDir.exists()) mediaDir.mkdirs();
+    }
+
+    private boolean cloudActive() {
+        return cloud != null && cloud.isActive();
+    }
+
+    private static SocialResult socialResult(CloudSync.Outcome outcome) {
+        switch (outcome) {
+            case SUCCESS: return SocialResult.SUCCESS;
+            case NOT_ALLOWED: return SocialResult.PERMISSION_DENIED;
+            case NOT_FOUND: return SocialResult.NOT_FOUND;
+            case INVALID: return SocialResult.INVALID_INPUT;
+            default: return SocialResult.UNAVAILABLE;
+        }
     }
 
     @Override public LiveData<List<SocialUser>> observeUsers() {
@@ -73,13 +111,23 @@ public class RoomSocialRepository implements SocialRepository {
     }
 
     @Override
-    public void ensureSeeded(String userId) {
+    public void ensureProfile(String userId, String displayName, String handle) {
         if (userId == null || userId.isBlank()) return;
         currentUserId.postValue(userId);
         database.runInTransaction(() -> {
-            if (dao.userCount() == 0) seed(userId);
-            if (dao.getUser(userId) == null) dao.upsertUser(newUser(userId, "WinterArc member", "@winterarc", "Building one day at a time."));
+            purgeLegacySampleData();
+            if (dao.getUser(userId) == null) dao.upsertUser(newUser(userId, displayName, handle, ""));
         });
+        if (cloudActive()) {
+            // Creates the shared profile if this account has none yet; one made on the website is
+            // kept, and the refresh that follows brings it (name, @handle, bio) to this device.
+            JsonObject profile = new JsonObject();
+            profile.addProperty("user_id", userId);
+            profile.addProperty("display_name", clean(displayName, 50));
+            profile.addProperty("handle", handle);
+            profile.addProperty("bio", "");
+            cloud.ensureProfile(profile);
+        }
     }
 
     @Override
@@ -88,6 +136,12 @@ public class RoomSocialRepository implements SocialRepository {
         String clean = clean(displayName, 50);
         if (user == null) return SocialResult.NOT_FOUND;
         if (clean.length() < 2) return SocialResult.INVALID_INPUT;
+        if (cloudActive()) {
+            JsonObject changes = new JsonObject();
+            changes.addProperty("display_name", clean);
+            changes.addProperty("bio", clean(bio, 160));
+            return socialResult(cloud.write(bearer -> cloud.api().updateProfile(bearer, "eq." + actorUserId, changes)));
+        }
         user.displayName = clean;
         user.bio = clean(bio, 160);
         user.initial = clean.substring(0, 1).toUpperCase(java.util.Locale.ROOT);
@@ -96,8 +150,49 @@ public class RoomSocialRepository implements SocialRepository {
     }
 
     @Override
+    public SocialResult setProfileImage(String actorUserId, String kind, @androidx.annotation.Nullable byte[] jpeg) {
+        if (!"avatar".equals(kind) && !"banner".equals(kind)) return SocialResult.INVALID_INPUT;
+        if (dao.getUser(actorUserId) == null) return SocialResult.NOT_FOUND;
+        String url = null;
+        if (cloudActive()) {
+            if (jpeg != null) {
+                url = cloud.uploadProfileImage(actorUserId, kind, jpeg);
+                if (url == null) return SocialResult.UNAVAILABLE;
+            }
+            JsonObject changes = new JsonObject();
+            if (url == null) changes.add(kind + "_url", com.google.gson.JsonNull.INSTANCE);
+            else changes.addProperty(kind + "_url", url);
+            okhttp3.RequestBody json = okhttp3.RequestBody.create(changes.toString(), okhttp3.MediaType.get("application/json"));
+            return socialResult(cloud.write(bearer -> cloud.api().updateProfileJson(bearer, "eq." + actorUserId, json)));
+        }
+        if (jpeg != null) {
+            if (mediaDir == null) return SocialResult.UNAVAILABLE;
+            java.io.File file = new java.io.File(mediaDir, actorUserId.replaceAll("[^A-Za-z0-9_-]", "_") + "-" + kind
+                    + "-" + System.currentTimeMillis() + ".jpg");
+            try (java.io.FileOutputStream out = new java.io.FileOutputStream(file)) {
+                out.write(jpeg);
+            } catch (java.io.IOException e) {
+                return SocialResult.UNAVAILABLE;
+            }
+            url = android.net.Uri.fromFile(file).toString();
+        }
+        SocialUserEntity user = dao.getUser(actorUserId);
+        if ("avatar".equals(kind)) user.avatarUrl = url; else user.bannerUrl = url;
+        dao.upsertUser(user);
+        return SocialResult.SUCCESS;
+    }
+
+    @Override
     public SocialResult toggleFollow(String actorUserId, String targetUserId) {
         if (actorUserId.equals(targetUserId) || dao.getUser(targetUserId) == null) return SocialResult.INVALID_INPUT;
+        if (cloudActive()) {
+            if (dao.hasFollow(actorUserId, targetUserId) > 0) {
+                return socialResult(cloud.write(bearer -> cloud.api().unfollow(bearer, "eq." + actorUserId, "eq." + targetUserId)));
+            }
+            JsonObject follow = new JsonObject();
+            follow.addProperty("followed_user_id", targetUserId);
+            return socialResult(cloud.write(bearer -> cloud.api().follow(bearer, follow)));
+        }
         if (dao.hasFollow(actorUserId, targetUserId) > 0) {
             dao.deleteFollow(actorUserId, targetUserId);
         } else {
@@ -245,40 +340,20 @@ public class RoomSocialRepository implements SocialRepository {
         return SocialResult.SUCCESS;
     }
 
-    private void seed(String currentUser) {
-        dao.upsertUser(newUser(currentUser, "WinterArc member", "@winterarc", "Building one day at a time."));
-        dao.upsertUser(newUser("user-maya", "Maya R.", "@mayaruns", "Sunrise runner · steady over perfect."));
-        dao.upsertUser(newUser("user-arjun", "Arjun S.", "@deepworkarjun", "Focused work, calmer days."));
-        dao.upsertUser(newUser("user-nina", "Nina K.", "@ninareads", "Always carrying one more book."));
+    /** Ids of the sample rows seeded by earlier builds; removed from existing installs. */
+    private static final List<String> LEGACY_USERS = java.util.Arrays.asList("user-maya", "user-arjun", "user-nina");
+    private static final List<String> LEGACY_COMMUNITIES =
+            java.util.Arrays.asList("community-running", "community-focus", "community-reading");
+    private static final List<String> LEGACY_POSTS = java.util.Arrays.asList("post-maya", "post-arjun", "post-nina");
 
-        CommunityEntity running = newCommunity("community-running", "Morning Runners",
-                "A supportive place for early miles, patient progress, and honest check-ins.", "user-maya", true, true, true);
-        CommunityEntity focus = newCommunity("community-focus", "Deep Work Club",
-                "Build a sustainable focus habit without glorifying burnout.", "user-arjun", true, true, false);
-        CommunityEntity reading = newCommunity("community-reading", "Read Together",
-                "Share what you are reading and keep the pages turning.", "user-nina", true, false, true);
-        dao.upsertCommunity(running);
-        dao.upsertCommunity(focus);
-        dao.upsertCommunity(reading);
-        member(running.id, "user-maya", MemberRole.OWNER, Instant.parse("2026-01-01T00:00:00Z"));
-        member(running.id, currentUser, MemberRole.MEMBER, Instant.parse("2026-09-20T00:00:00Z"));
-        member(running.id, "user-nina", MemberRole.MEMBER, Instant.parse("2026-09-22T00:00:00Z"));
-        member(focus.id, "user-arjun", MemberRole.OWNER, Instant.parse("2026-01-05T00:00:00Z"));
-        member(reading.id, "user-nina", MemberRole.OWNER, Instant.parse("2026-02-01T00:00:00Z"));
-
-        seedPost("post-maya", running.id, "user-maya",
-                "Week three of showing up before sunrise. Today was slower, but I still finished all 5 km — consistency is finally starting to feel natural.",
-                Instant.parse("2026-10-04T06:15:00Z"));
-        seedPost("post-arjun", focus.id, "user-arjun",
-                "Closed my laptop after a focused 45-minute session instead of pushing until I burned out. Small, repeatable wins are the plan this time.",
-                Instant.parse("2026-10-04T05:30:00Z"));
-        seedPost("post-nina", reading.id, "user-nina",
-                "Finished the final chapter today. That makes 14 reading days in a row. What are you reading this week?",
-                Instant.parse("2026-10-04T04:00:00Z"));
-        like("post-maya", "user-arjun"); like("post-maya", "user-nina");
-        like("post-nina", "user-maya");
-        seedMessage("message-1", running.id, "user-maya", "Welcome! What is everyone aiming for tomorrow morning?", Instant.parse("2026-10-04T05:00:00Z"));
-        seedMessage("message-2", running.id, "user-nina", "A relaxed 3 km for me — keeping it easy today.", Instant.parse("2026-10-04T05:04:00Z"));
+    private void purgeLegacySampleData() {
+        dao.purgeLikes(LEGACY_POSTS, LEGACY_USERS);
+        dao.purgePosts(LEGACY_POSTS, LEGACY_COMMUNITIES, LEGACY_USERS);
+        dao.purgeMessages(LEGACY_COMMUNITIES, LEGACY_USERS);
+        dao.purgeMembers(LEGACY_COMMUNITIES, LEGACY_USERS);
+        dao.purgeFollows(LEGACY_USERS);
+        dao.purgeCommunities(LEGACY_COMMUNITIES);
+        dao.purgeUsers(LEGACY_USERS);
     }
 
     private void member(String communityId, String userId, MemberRole role, Instant at) {
@@ -286,20 +361,8 @@ public class RoomSocialRepository implements SocialRepository {
         row.role = role.key(); row.joinedAt = at; dao.upsertMember(row);
     }
 
-    private void seedPost(String id, String communityId, String authorId, String body, Instant at) {
-        CommunityPostEntity row = new CommunityPostEntity(); row.id = id; row.communityId = communityId;
-        row.authorUserId = authorId; row.body = body; row.createdAt = at; dao.insertPost(row);
-    }
 
-    private void seedMessage(String id, String communityId, String senderId, String body, Instant at) {
-        CommunityMessageEntity row = new CommunityMessageEntity(); row.id = id; row.communityId = communityId;
-        row.senderUserId = senderId; row.body = body; row.createdAt = at; dao.insertMessage(row);
-    }
 
-    private void like(String postId, String userId) {
-        PostLikeEntity row = new PostLikeEntity(); row.postId = postId; row.userId = userId; row.createdAt = Instant.EPOCH;
-        dao.insertLike(row);
-    }
 
     private static SocialUserEntity newUser(String id, String name, String handle, String bio) {
         SocialUserEntity row = new SocialUserEntity(); row.userId = id; row.displayName = name; row.handle = handle;
@@ -322,7 +385,9 @@ public class RoomSocialRepository implements SocialRepository {
         return new CommunityPermissions(c.membersCanPost, c.membersCanChat, c.membersCanInvite);
     }
 
-    private static SocialUser user(SocialUserEntity r) { return new SocialUser(r.userId, r.displayName, r.handle, r.bio, r.initial); }
+    private static SocialUser user(SocialUserEntity r) {
+        return new SocialUser(r.userId, r.displayName, r.handle, r.bio, r.initial, r.avatarUrl, r.bannerUrl);
+    }
     private static Community community(CommunityEntity r) { return new Community(r.id, r.name, r.description, r.ownerUserId, permissions(r), r.createdAt); }
     private static CommunityMember member(CommunityMemberEntity r) { return new CommunityMember(r.communityId, r.userId, MemberRole.fromKey(r.role), r.joinedAt); }
     private static CommunityPost post(PostRow r) { return new CommunityPost(r.id, r.communityId, r.authorUserId, r.body, r.createdAt, r.likeCount, r.likedByMe); }

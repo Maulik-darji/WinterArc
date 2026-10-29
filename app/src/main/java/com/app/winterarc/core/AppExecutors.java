@@ -14,10 +14,16 @@ import java.util.concurrent.Executors;
 public class AppExecutors {
     private final Executor io;
     private final Executor main;
+    private final Executor network;
 
     public AppExecutors(Executor io, Executor main) {
+        this(io, main, io);
+    }
+
+    public AppExecutors(Executor io, Executor main, Executor network) {
         this.io = io;
         this.main = main;
+        this.network = network;
     }
 
     public static AppExecutors create() {
@@ -27,7 +33,14 @@ public class AppExecutors {
             return t;
         });
         Handler handler = new Handler(Looper.getMainLooper());
-        return new AppExecutors(io, handler::post);
+        // Cloud calls wait on the network, so they get their own threads and never hold up the
+        // single database thread (check-ins stay instant even on a slow connection).
+        ExecutorService network = Executors.newCachedThreadPool(r -> {
+            Thread t = new Thread(r, "winterarc-net");
+            t.setDaemon(true);
+            return t;
+        });
+        return new AppExecutors(io, handler::post, network);
     }
 
     /** Runs everything inline; for unit tests. */
@@ -42,5 +55,10 @@ public class AppExecutors {
 
     public Executor main() {
         return main;
+    }
+
+    /** For work that waits on the network (cloud reads and writes). */
+    public Executor network() {
+        return network;
     }
 }

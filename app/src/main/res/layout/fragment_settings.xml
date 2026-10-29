@@ -88,7 +88,7 @@
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/theme_system"
-                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                style="@style/Widget.WinterArc.Button.Outlined"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -97,7 +97,7 @@
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/theme_light"
-                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                style="@style/Widget.WinterArc.Button.Outlined"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -106,7 +106,7 @@
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/theme_dark"
-                                style="@style/Widget.Material3.Button.OutlinedButton"
+                                style="@style/Widget.WinterArc.Button.Outlined"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -199,31 +199,6 @@
                         <include android:id="@+id/row_version" layout="@layout/item_settings_row" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-
-                <LinearLayout
-                    android:id="@+id/demo_section"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        style="@style/Widget.WinterArc.SectionTitle"
-                        android:text="@string/settings_section_demo" />
-
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <include android:id="@+id/row_demo_load" layout="@layout/item_settings_row" />
-                            <include android:id="@+id/row_demo_clear" layout="@layout/item_settings_row" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
-                </LinearLayout>
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </LinearLayout>

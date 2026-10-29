@@ -1,6 +1,7 @@
 package com.app.winterarc.ui.archive;
 
 import android.content.Context;
+import com.app.winterarc.ui.common.Haptics;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -65,7 +66,10 @@ public class ArchiveFragment extends Fragment {
         new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(R.string.archive_delete_title)
                 .setMessage(getString(R.string.archive_delete_body, goal.title()))
-                .setPositiveButton(R.string.action_delete, (d, w) -> viewModel.delete(goal.id()))
+                .setPositiveButton(R.string.action_delete, (d, w) -> {
+                    Haptics.reject(binding.getRoot());
+                    viewModel.delete(goal.id());
+                })
                 .setNegativeButton(R.string.action_cancel, null)
                 .show();
     }
@@ -115,7 +119,10 @@ public class ArchiveFragment extends Fragment {
             h.b.status.setText(c.getString(goal.status() == GoalStatus.COMPLETED
                     ? R.string.archive_status_completed : R.string.archive_status_archived, date));
             h.b.card.setOnClickListener(v -> Nav.go(ArchiveFragment.this, R.id.goalDetailFragment, Nav.goal(goal.id())));
-            h.b.restore.setOnClickListener(v -> viewModel.restore(goal.id()));
+            h.b.restore.setOnClickListener(v -> {
+                Haptics.confirm(v);
+                viewModel.restore(goal.id());
+            });
             h.b.delete.setOnClickListener(v -> confirmDelete(goal));
         }
     }

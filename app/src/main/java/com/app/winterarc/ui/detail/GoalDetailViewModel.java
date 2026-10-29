@@ -57,7 +57,7 @@ public class GoalDetailViewModel extends ViewModel {
                               GoalTimeline timeline) {}
 
     /** One-shot messages for snackbars. */
-    public enum Message { COMPLETED, PARTIAL, SKIPPED, UNDONE, NOTE_SAVED, PAUSED, RESUMED, ARCHIVED, RESTORED,
+    public enum Message { COMPLETED, PARTIAL, SKIPPED, UNDONE, DAY_CLEARED, NOTE_SAVED, PAUSED, RESUMED, ARCHIVED, RESTORED,
         MAINTAINED, CONTINUED, GOAL_COMPLETED, ERROR }
 
     private final long goalId;
@@ -208,6 +208,18 @@ public class GoalDetailViewModel extends ViewModel {
 
     public void complete() {
         runCheckIn(() -> checkIn.complete(goalId, time.today()));
+    }
+
+    /** Fills in a missed day (or today) from the grid. */
+    public void completeDay(LocalDate date) {
+        runCheckIn(() -> checkIn.complete(goalId, date));
+    }
+
+    public void clearDay(LocalDate date) {
+        executors.io().execute(() -> {
+            CheckInUseCase.Result r = checkIn.undo(goalId, date);
+            post(r.status() == CheckInUseCase.Status.SAVED ? Message.DAY_CLEARED : Message.ERROR);
+        });
     }
 
     public void logValue(Amount amount, @Nullable String note) {

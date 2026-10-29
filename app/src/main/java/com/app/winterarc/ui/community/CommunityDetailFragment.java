@@ -1,6 +1,7 @@
 package com.app.winterarc.ui.community;
 
 import android.graphics.drawable.GradientDrawable;
+import com.app.winterarc.ui.common.Haptics;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -70,7 +71,10 @@ public class CommunityDetailFragment extends Fragment {
                     message.result() == SocialResult.PERMISSION_DENIED ? R.string.community_action_denied
                             : R.string.community_action_failed, Snackbar.LENGTH_SHORT).show();
         });
-        binding.send.setOnClickListener(v -> send());
+        binding.send.setOnClickListener(v -> {
+            Haptics.tick(v);
+            send();
+        });
         binding.message.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId != EditorInfo.IME_ACTION_SEND) return false;
             send(); return true;
@@ -97,6 +101,7 @@ public class CommunityDetailFragment extends Fragment {
         binding.membershipAction.setVisibility(owner ? View.GONE : View.VISIBLE);
         binding.membershipAction.setText(member ? R.string.community_leave : R.string.community_join);
         binding.membershipAction.setOnClickListener(v -> {
+            Haptics.confirm(v);
             if (!member) viewModel.join(communityId);
             else new MaterialAlertDialogBuilder(requireContext())
                     .setMessage(getString(R.string.community_leave_confirm, finalCommunity.name()))

@@ -11,6 +11,7 @@ import com.app.winterarc.domain.repository.ContentRepository;
 import com.app.winterarc.domain.repository.PreferencesRepository;
 import com.app.winterarc.domain.repository.ReminderScheduler;
 import com.app.winterarc.reminders.Notifications;
+import com.app.winterarc.ui.common.Haptics;
 import com.app.winterarc.ui.common.ThemeController;
 
 import javax.inject.Inject;
@@ -30,6 +31,8 @@ public class WinterArcApplication extends Application implements Configuration.P
     public void onCreate() {
         super.onCreate();
         ThemeController.apply(preferences.get().themeMode());
+        Haptics.setEnabled(preferences.get().hapticsEnabled());
+        preferences.observe().observeForever(p -> Haptics.setEnabled(p.hapticsEnabled()));
         Notifications.createChannels(this);
         executors.io().execute(() -> {
             content.ensureSeeded();

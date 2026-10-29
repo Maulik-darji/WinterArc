@@ -24,11 +24,21 @@
             android:paddingStart="@dimen/screen_gutter"
             android:paddingEnd="@dimen/screen_gutter"
             android:paddingBottom="@dimen/space_xxl">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="@dimen/space_m"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_profile_banner"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.WinterArc.Medium" />
+
             <TextView
                 android:id="@+id/avatar"
                 android:layout_width="84dp"
                 android:layout_height="84dp"
-                android:layout_marginTop="@dimen/space_l"
+                android:layout_marginTop="-42dp"
                 android:background="@drawable/bg_avatar"
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.WinterArc.Headline"

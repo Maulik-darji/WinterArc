@@ -22,6 +22,15 @@ public interface SocialDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void upsertUser(SocialUserEntity user);
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void upsertUsers(java.util.List<SocialUserEntity> users);
+
+    @Query("DELETE FROM follows")
+    void clearFollows();
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    void insertFollows(java.util.List<FollowEntity> follows);
+
     @Query("SELECT * FROM communities ORDER BY created_at DESC")
     LiveData<List<CommunityEntity>> observeCommunities();
 
@@ -56,6 +65,9 @@ public interface SocialDao {
     @Query("SELECT * FROM community_posts WHERE id = :postId")
     CommunityPostEntity getPost(String postId);
 
+    @Query("SELECT COUNT(*) FROM community_posts WHERE community_id = :communityId")
+    int postCount(String communityId);
+
     @Insert(onConflict = OnConflictStrategy.ABORT)
     void insertPost(CommunityPostEntity post);
 
@@ -83,6 +95,31 @@ public interface SocialDao {
     @Query("SELECT * FROM community_messages WHERE community_id = :communityId ORDER BY created_at ASC")
     LiveData<List<CommunityMessageEntity>> observeMessages(String communityId);
 
+    @Query("SELECT COUNT(*) FROM community_messages WHERE community_id = :communityId")
+    int messageCount(String communityId);
+
     @Insert(onConflict = OnConflictStrategy.ABORT)
     void insertMessage(CommunityMessageEntity message);
+
+    // ---- Removal of the sample data earlier builds seeded (people, communities, posts, chat). ----
+    @Query("DELETE FROM post_likes WHERE post_id IN (:postIds) OR user_id IN (:userIds)")
+    void purgeLikes(java.util.List<String> postIds, java.util.List<String> userIds);
+
+    @Query("DELETE FROM community_posts WHERE id IN (:postIds) OR community_id IN (:communityIds) OR author_user_id IN (:userIds)")
+    void purgePosts(java.util.List<String> postIds, java.util.List<String> communityIds, java.util.List<String> userIds);
+
+    @Query("DELETE FROM community_messages WHERE community_id IN (:communityIds) OR sender_user_id IN (:userIds)")
+    void purgeMessages(java.util.List<String> communityIds, java.util.List<String> userIds);
+
+    @Query("DELETE FROM community_members WHERE community_id IN (:communityIds) OR user_id IN (:userIds)")
+    void purgeMembers(java.util.List<String> communityIds, java.util.List<String> userIds);
+
+    @Query("DELETE FROM follows WHERE follower_user_id IN (:userIds) OR followed_user_id IN (:userIds)")
+    void purgeFollows(java.util.List<String> userIds);
+
+    @Query("DELETE FROM communities WHERE id IN (:communityIds)")
+    void purgeCommunities(java.util.List<String> communityIds);
+
+    @Query("DELETE FROM social_users WHERE user_id IN (:userIds)")
+    void purgeUsers(java.util.List<String> userIds);
 }

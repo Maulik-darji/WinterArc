@@ -1,6 +1,7 @@
 package com.app.winterarc.ui.community;
 
 import android.os.Bundle;
+import com.app.winterarc.ui.common.Haptics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

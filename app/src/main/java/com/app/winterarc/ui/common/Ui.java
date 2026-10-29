@@ -2,7 +2,6 @@ package com.app.winterarc.ui.common;
 
 import android.content.Context;
 import android.provider.Settings;
-import android.view.HapticFeedbackConstants;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -50,10 +49,20 @@ public final class Ui {
         });
     }
 
+    /** Success feedback; kept for existing call sites, now routed through {@link Haptics}. */
     public static void confirmHaptic(View view, boolean enabled) {
-        if (!enabled) return;
-        view.performHapticFeedback(android.os.Build.VERSION.SDK_INT >= 30
-                ? HapticFeedbackConstants.CONFIRM : HapticFeedbackConstants.VIRTUAL_KEY);
+        if (enabled) Haptics.confirm(view);
+    }
+
+    /** The field's text, never null. */
+    public static String text(@androidx.annotation.Nullable android.widget.EditText field) {
+        return field == null || field.getText() == null ? "" : field.getText().toString();
+    }
+
+    public static void hideKeyboard(View view) {
+        android.view.inputmethod.InputMethodManager imm =
+                view.getContext().getSystemService(android.view.inputmethod.InputMethodManager.class);
+        if (imm != null) imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
     public static int dp(Context context, float dp) {

@@ -28,11 +28,21 @@
             android:paddingStart="@dimen/screen_gutter"
             android:paddingEnd="@dimen/screen_gutter">
 
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="@dimen/space_m"
+                android:importantForAccessibility="no"
+                android:scaleType="centerCrop"
+                android:src="@drawable/bg_profile_banner"
+                app:shapeAppearanceOverlay="@style/ShapeAppearance.WinterArc.Medium" />
+
             <TextView
                 android:id="@+id/avatar"
                 android:layout_width="84dp"
                 android:layout_height="84dp"
-                android:layout_marginTop="@dimen/space_l"
+                android:layout_marginTop="-42dp"
                 android:background="@drawable/bg_avatar"
                 android:gravity="center"
                 android:text="@string/profile_default_initial"
@@ -49,14 +59,22 @@
                 android:textAppearance="?attr/textAppearanceHeadlineSmall" />
 
             <TextView
-                android:id="@+id/phone"
+                android:id="@+id/account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_xs"
                 android:gravity="center"
-                android:text="@string/profile_phone_hidden"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="?attr/colorOnSurfaceVariant" />
+
+            <TextView
+                android:id="@+id/bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_s"
+                android:gravity="center"
+                android:textAppearance="?attr/textAppearanceBodyLarge"
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"

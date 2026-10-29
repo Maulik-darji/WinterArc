@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Default profile banner (matches the website): dark brand tone into WinterArc green. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="315"
+        android:endColor="#FF0F8A6A"
+        android:startColor="#FF201D1E" />
+</shape>

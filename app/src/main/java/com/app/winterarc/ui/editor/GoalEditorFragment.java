@@ -51,6 +51,7 @@ import com.app.winterarc.domain.model.WeeklySchedule;
 import com.app.winterarc.domain.repository.PreferencesRepository;
 import com.app.winterarc.ui.common.DomainText;
 import com.app.winterarc.ui.common.GoalVisuals;
+import com.app.winterarc.ui.common.Haptics;
 import com.app.winterarc.ui.common.Nav;
 import com.app.winterarc.ui.common.Ui;
 import com.google.android.material.button.MaterialButton;
@@ -137,7 +138,7 @@ public class GoalEditorFragment extends Fragment {
                 if (s.step() == GoalEditorViewModel.STEP_TARGET) {
                     viewModel.setTitleIfBlank(getString(GoalVisuals.activityName(s.draft().activityType)));
                 }
-                viewModel.next();
+                if (!viewModel.next()) Haptics.reject(binding.next);
             }
         });
         requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
@@ -151,6 +152,7 @@ public class GoalEditorFragment extends Fragment {
         viewModel.saved().observe(getViewLifecycleOwner(), event -> {
             Long id = event.consume();
             if (id == null) return;
+            Haptics.confirm(binding.getRoot());
             if (viewModel.isEditing()) {
                 Nav.up(this);
             } else {
@@ -211,6 +213,7 @@ public class GoalEditorFragment extends Fragment {
             card.icon.setImageTintList(ColorStateList.valueOf(color));
             card.icon.setBackgroundTintList(ColorStateList.valueOf(GoalVisuals.container(requireContext(), type.defaultColor())));
             card.getRoot().setOnClickListener(v -> {
+                Haptics.tick(v);
                 viewModel.selectActivity(type);
                 if (!viewModel.isEditing()) viewModel.next();
             });
@@ -234,6 +237,7 @@ public class GoalEditorFragment extends Fragment {
         card.icon.setImageResource(GoalVisuals.modeIcon(mode));
         card.icon.setImageTintList(ColorStateList.valueOf(color));
         card.getRoot().setOnClickListener(v -> {
+            Haptics.tick(v);
             viewModel.selectMode(mode);
             if (!viewModel.isEditing()) viewModel.next();
         });
@@ -248,7 +252,10 @@ public class GoalEditorFragment extends Fragment {
         t.unitChips.setOnCheckedStateChangeListener((group, ids) -> {
             if (rendering || ids.isEmpty()) return;
             Object tag = group.findViewById(ids.get(0)).getTag();
-            if (tag instanceof GoalUnit) viewModel.setUnit((GoalUnit) tag);
+            if (tag instanceof GoalUnit) {
+                Haptics.tick(group);
+                viewModel.setUnit((GoalUnit) tag);
+            }
         });
         t.customUnit.addTextChangedListener(watcher(text -> viewModel.setCustomUnitLabel(text)));
 
@@ -269,7 +276,10 @@ public class GoalEditorFragment extends Fragment {
             chip.setTag(icon);
             chip.setChipIconResource(GoalVisuals.icon(icon));
             chip.setContentDescription(icon.key());
-            chip.setOnClickListener(v -> viewModel.setIcon(icon));
+            chip.setOnClickListener(v -> {
+                Haptics.tick(v);
+                viewModel.setIcon(icon);
+            });
             binding.stepDetails.icons.addView(chip);
         }
         for (GoalColor color : GoalColor.values()) {
@@ -280,7 +290,10 @@ public class GoalEditorFragment extends Fragment {
             chip.setChipIconResource(R.drawable.ic_color_dot);
             chip.setChipIconTint(ColorStateList.valueOf(value));
             chip.setContentDescription(color.key());
-            chip.setOnClickListener(v -> viewModel.setColor(color));
+            chip.setOnClickListener(v -> {
+                Haptics.tick(v);
+                viewModel.setColor(color);
+            });
             binding.stepDetails.colors.addView(chip);
         }
     }
@@ -293,15 +306,23 @@ public class GoalEditorFragment extends Fragment {
             MaterialButton button = (MaterialButton) LayoutInflater.from(c).inflate(R.layout.item_day_toggle, days, false);
             button.setText(day.getDisplayName(TextStyle.NARROW, locale));
             button.setContentDescription(day.getDisplayName(TextStyle.FULL, locale));
-            button.addOnCheckedChangeListener((b, checked) -> { if (!rendering) viewModel.toggleDay(day, checked); });
+            button.addOnCheckedChangeListener((b, checked) -> {
+                if (rendering) return;
+                Haptics.toggle(b, checked);
+                viewModel.toggleDay(day, checked);
+            });
             dayButtons.put(day, button);
             days.addView(button);
         }
-        binding.stepSchedule.everyDay.setOnClickListener(v -> viewModel.setSchedule(WeeklySchedule.EVERY_DAY));
-        binding.stepSchedule.weekdays.setOnClickListener(v -> viewModel.setSchedule(WeeklySchedule.of(
-                DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY)));
+        binding.stepSchedule.everyDay.setOnClickListener(v -> {
+            Haptics.tick(v);
+            viewModel.setSchedule(WeeklySchedule.EVERY_DAY);
+        });
+        binding.stepSchedule.weekdays.setOnClickListener(v -> Haptics.tickThen(v, () -> viewModel.setSchedule(WeeklySchedule.of(
+                DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY, DayOfWeek.FRIDAY))));
         binding.stepSchedule.reminderSwitch.setOnCheckedChangeListener((b, checked) -> {
             if (rendering) return;
+            Haptics.toggle(b, checked);
             viewModel.setReminderEnabled(checked);
             if (checked) requestNotificationPermissionIfNeeded();
         });
@@ -662,6 +683,7 @@ public class GoalEditorFragment extends Fragment {
                 int pos = h.getBindingAdapterPosition();
                 if (pos == RecyclerView.NO_POSITION) return;
                 MilestoneOptions.Option chosen = options.get(pos);
+                Haptics.tick(v);
                 if (chosen.isCustom()) viewModel.chooseCustomFinal(); else viewModel.chooseSuggestedFinal(chosen.value());
                 if (!Ui.reducedMotion(c)) binding.stepTarget.milestones.smoothScrollToPosition(pos);
             });

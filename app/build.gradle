@@ -3,11 +3,22 @@ plugins {
     alias(libs.plugins.hilt)
 }
 
-// Firebase is enabled only when app/google-services.json is present (see README → Phone sign-up).
-// Without it the app builds normally; debug builds fall back to a fake OTP provider.
-if (file("google-services.json").exists()) {
-    apply plugin: libs.plugins.google.services.get().pluginId
+// Supabase's publishable client values are read at build time. local.properties is ignored by
+// Git; CI can provide the same names as environment variables.
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { localProperties.load(it) }
 }
+def supabaseUrl = System.getenv("SUPABASE_URL") ?: localProperties.getProperty("SUPABASE_URL", "")
+def supabasePublishableKey = System.getenv("SUPABASE_PUBLISHABLE_KEY") ?:
+        localProperties.getProperty("SUPABASE_PUBLISHABLE_KEY", "")
+
+// "Continue with Google" needs the OAuth *web* client id from Google Cloud (the same id is listed
+// under Client IDs in Supabase > Authentication > Providers > Google). It is public, not a secret.
+def googleWebClientId = System.getenv("GOOGLE_WEB_CLIENT_ID") ?: localProperties.getProperty("GOOGLE_WEB_CLIENT_ID", "")
+// Instrumented tests must never create real accounts, so they build with the local test sign-in.
+def instrumentedTestRun = gradle.startParameter.taskNames.any { it.toLowerCase().contains("androidtest") }
 
 // Release signing is read from an untracked keystore.properties file (see README).
 def keystorePropertiesFile = rootProject.file("keystore.properties")
@@ -31,6 +42,13 @@ android {
         targetSdk 36
         versionCode 1
         versionName "1.0.0"
+
+        buildConfigField "String", "SUPABASE_URL", "\"${supabaseUrl}\""
+        buildConfigField "String", "SUPABASE_PUBLISHABLE_KEY", "\"${supabasePublishableKey}\""
+        buildConfigField "boolean", "SUPABASE_CONFIGURED",
+                "${!supabaseUrl.isBlank() && !supabasePublishableKey.isBlank()}"
+        buildConfigField "String", "GOOGLE_WEB_CLIENT_ID", "\"${googleWebClientId}\""
+        buildConfigField "boolean", "USE_SUPABASE_AUTH", "${!instrumentedTestRun}"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         // Each instrumented test starts from a clean install state.
@@ -117,8 +135,13 @@ dependencies {
     annotationProcessor libs.room.compiler
     implementation libs.work.runtime
 
-    implementation platform(libs.firebase.bom)
-    implementation libs.firebase.auth
+    implementation libs.credentials
+    implementation libs.credentials.play.services
+    implementation libs.googleid
+
+    implementation libs.retrofit
+    implementation libs.glide
+    implementation libs.retrofit.gson
 
     implementation libs.hilt.android
     annotationProcessor libs.hilt.compiler
@@ -132,6 +155,7 @@ dependencies {
     testImplementation libs.arch.core.testing
     testImplementation libs.room.testing
     testImplementation libs.espresso.core
+    testImplementation libs.okhttp.mockwebserver
 
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

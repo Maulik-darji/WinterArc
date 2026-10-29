@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shared status area: provider error, "not configured" notice and the debug test-mode hint. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_m"
+        android:accessibilityLiveRegion="assertive"
+        android:background="@drawable/bg_error"
+        android:padding="@dimen/space_m"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:textColor="?attr/colorOnErrorContainer"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/unavailable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_m"
+        android:background="@drawable/bg_status"
+        android:padding="@dimen/space_m"
+        android:text="@string/auth_unavailable"
+        android:textAppearance="?attr/textAppearanceBodyMedium"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/test_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_m"
+        android:background="@drawable/bg_banner"
+        android:padding="@dimen/space_m"
+        android:textAppearance="?attr/textAppearanceLabelLarge"
+        android:textColor="?attr/colorOnTertiaryContainer"
+        android:visibility="gone" />
+</LinearLayout>

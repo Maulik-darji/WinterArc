@@ -195,7 +195,7 @@ public class HomeAdapter extends ListAdapter<HomeAdapter.Item, RecyclerView.View
             b.action.setOnClickListener(null);
             b.action.setVisibility(View.VISIBLE);
             b.action.setEnabled(true);
-            b.action.setIconTint(null);
+            b.action.setIconTint(b.action.getTextColors());
             if (card.section() == HomeViewModel.Section.PAUSED) {
                 b.action.setText(R.string.card_resume);
                 b.action.setIconResource(R.drawable.ic_play);
