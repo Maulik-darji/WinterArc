@@ -116,7 +116,7 @@ export default function Home() {
 
       <section id="top" className="hero">
         <div className="hero-copy">
-          <div className="availability"><span /> Android preview · Version 1.0.0</div>
+          <div className="availability"><span /> Android preview · Version 1.0</div>
           <h1>Turn intention into <em>evidence.</em></h1>
           <p className="hero-lede">
             WinterArc turns the goals you care about into visible daily progress—so every walk,

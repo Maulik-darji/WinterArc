@@ -537,7 +537,7 @@
     <string name="settings_privacy">Privacy policy</string>
     <string name="settings_terms">Terms &amp; disclaimer</string>
     <string name="settings_onboarding">Show introduction again</string>
-    <string name="settings_version">Version %1$s</string>
+    <string name="settings_version">WinterArc version %1$s</string>
 
     <!-- Legal -->
     <string name="privacy_title">Privacy policy</string>
