@@ -104,7 +104,7 @@ export default function Home() {
         <nav aria-label="Primary navigation">
           <a href="#how-it-works">How it works</a>
           <a href="#features">Features</a>
-          <a href="/home">Explore</a>
+          <a className="nav-explore" href="/home">Explore</a>
           <a href="/login">Log in</a>
           <Button className="nav-download" asChild>
             <a href="/downloads/WinterArc-1.0.0-preview.apk" download>
@@ -129,6 +129,7 @@ export default function Home() {
               </a>
             </Button>
             <a className="text-link" href="#how-it-works">See how WinterArc works</a>
+            <a className="text-link" href="/home">Browse posts, no account needed</a>
           </div>
           <p className="download-note">Preview build · Android 8.0 or newer · 11 MB</p>
         </div>
